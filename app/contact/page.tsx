@@ -39,13 +39,40 @@ export default function ContactPage() {
     setFormState((prev) => ({ ...prev, vehicle: value }));
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  // const handleSubmit = (e: React.FormEvent) => {
+  //   e.preventDefault();
+  //   setIsSubmitting(true);
+
+  //   // Simulate form submission
+  //   setTimeout(() => {
+  //     setIsSubmitting(false);
+  //     setIsSubmitted(true);
+  //     setFormState({
+  //       name: "",
+  //       email: "",
+  //       phone: "",
+  //       vehicle: "",
+  //       message: "",
+  //     });
+  //   }, 1500);
+  // };
+
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
 
-    // Simulate form submission
-    setTimeout(() => {
-      setIsSubmitting(false);
+    const response = await fetch("/api/contact", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(formState),
+    });
+
+    const result = await response.json();
+    setIsSubmitting(false);
+
+    if (result.success) {
       setIsSubmitted(true);
       setFormState({
         name: "",
@@ -54,7 +81,9 @@ export default function ContactPage() {
         vehicle: "",
         message: "",
       });
-    }, 1500);
+    } else {
+      alert("There was a problem submitting the form.");
+    }
   };
 
   return (
@@ -83,7 +112,7 @@ export default function ContactPage() {
               </Button>
             </div>
           ) : (
-            <form onSubmit={handleSubmit} className="space-y-6">
+            <form onSubmit={handleSubmit} className="space-y-6" method="POST">
               <div>
                 <label
                   htmlFor="name"
@@ -172,6 +201,7 @@ export default function ContactPage() {
                     <SelectItem value="other">Other</SelectItem>
                   </SelectContent>
                 </Select>
+                <input type="hidden" name="vehicle" value={formState.vehicle} />
               </div>
               <div>
                 <label
