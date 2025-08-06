@@ -1,37 +1,36 @@
-"use client"
+'use client'
 
-import { useState } from "react"
-import Image from "next/image"
-import Link from "next/link"
-import { Button } from "@/components/ui/button"
-import { Badge } from "@/components/ui/badge"
-import { Card, CardContent } from "@/components/ui/card"
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
-import { ArrowLeft, Star, Truck, Shield, Clock, Wrench, Package, CheckCircle, ShoppingCart, Tag } from "lucide-react"
-import { useCart } from "@/contexts/cart-context"
+import { useState } from 'react'
+import Image from 'next/image'
+import Link from 'next/link'
+import { Button } from '@/components/ui/button'
+import { Badge } from '@/components/ui/badge'
+import { Card, CardContent } from '@/components/ui/card'
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
+import { ArrowLeft, Star, Truck, Shield, Clock, Wrench, Package, CheckCircle, ShoppingCart, Tag } from 'lucide-react'
+import { useCart } from '@/contexts/cart-context'
 
 const productImages = [
-  "/images/4runner-molle-panel-main.png",
-  "/images/4runner-molle-panel-installed-1.jpeg",
-  "/images/4runner-molle-panel-installed-2.jpeg",
+  '/images/4runner-molle-panel-installed-1.jpeg',
+  '/images/4runner-molle-panel-installed-2.jpeg',
 ]
 
 const specifications = [
-  { label: "Material", value: "Laser-cut steel with powder coating" },
-  { label: "Compatibility", value: "4th Gen 4Runner (2003-2009)" },
-  { label: "Mounting", value: "Bolt-on installation" },
-  { label: "Weight", value: "8 lbs" },
-  { label: "Finish", value: "Textured black powder coat" },
-  { label: "Hardware", value: "Stainless steel bolts included" },
+  { label: 'Material', value: 'Laser-cut steel with powder coating' },
+  { label: 'Compatibility', value: '4th Gen 4Runner (2003-2009)' },
+  { label: 'Mounting', value: 'Bolt-on installation' },
+  { label: 'Weight', value: '8 lbs' },
+  { label: 'Finish', value: 'Textured black powder coat' },
+  { label: 'Hardware', value: 'Stainless steel bolts included' },
 ]
 
 const features = [
-  "MOLLE-compatible webbing system",
-  "Modular organization options",
-  "Easy bolt-on installation",
-  "Durable powder-coated finish",
-  "Fits standard MOLLE accessories",
-  "Maximizes cargo area efficiency",
+  'MOLLE-compatible webbing system',
+  'Modular organization options',
+  'Easy bolt-on installation',
+  'Durable powder-coated finish',
+  'Fits standard MOLLE accessories',
+  'Maximizes cargo area efficiency',
 ]
 
 export default function MOLLEPanelPage() {
@@ -45,12 +44,12 @@ export default function MOLLEPanelPage() {
 
     // Add item to cart
     addItem({
-      id: "4runner-4th-gen-molle-panel-1",
-      name: "4th Gen 4Runner MOLLE Panel System",
+      id: '4runner-4th-gen-molle-panel-1',
+      name: '4th Gen 4Runner MOLLE Panel System',
       price: 120,
       image: productImages[0],
-      vehicle: "4Runner 4th Gen",
-      category: "Interior",
+      vehicle: '4Runner 4th Gen',
+      category: 'Interior',
     })
 
     // Simulate loading for better UX
@@ -59,7 +58,7 @@ export default function MOLLEPanelPage() {
   }
 
   const subtotal = 120 * quantity
-  const shipping = 25
+  const shipping = 10
   const total = subtotal + shipping
 
   return (
@@ -102,7 +101,7 @@ export default function MOLLEPanelPage() {
           <div className="space-y-4">
             <div className="aspect-square rounded-lg overflow-hidden bg-white shadow-lg">
               <Image
-                src={productImages[selectedImage] || "/placeholder.svg"}
+                src={productImages[selectedImage] || '/placeholder.svg'}
                 alt="4th Gen 4Runner MOLLE Panel System"
                 width={600}
                 height={600}
@@ -115,11 +114,11 @@ export default function MOLLEPanelPage() {
                   key={index}
                   onClick={() => setSelectedImage(index)}
                   className={`aspect-square rounded-lg overflow-hidden border-2 transition-all ${
-                    selectedImage === index ? "border-red-500" : "border-gray-200 hover:border-gray-300"
+                    selectedImage === index ? 'border-red-500' : 'border-gray-200 hover:border-gray-300'
                   }`}
                 >
                   <Image
-                    src={image || "/placeholder.svg"}
+                    src={image || '/placeholder.svg'}
                     alt={`MOLLE Panel view ${index + 1}`}
                     width={200}
                     height={200}
@@ -207,7 +206,7 @@ export default function MOLLEPanelPage() {
                 <CardContent className="p-4 text-center">
                   <Truck className="h-6 w-6 text-orange-600 mx-auto mb-2" />
                   <div className="text-sm font-medium">Shipping</div>
-                  <div className="text-xs text-gray-600">$25 flat rate</div>
+                  <div className="text-xs text-gray-600">$10 flat rate</div>
                 </CardContent>
               </Card>
             </div>
@@ -236,7 +235,7 @@ export default function MOLLEPanelPage() {
               <div className="bg-gray-50 rounded-lg p-4 space-y-2">
                 <div className="flex justify-between text-sm">
                   <span>
-                    Subtotal ({quantity} item{quantity > 1 ? "s" : ""}):
+                    Subtotal ({quantity} item{quantity > 1 ? 's' : ''}):
                   </span>
                   <span>${subtotal}</span>
                 </div>
@@ -258,7 +257,7 @@ export default function MOLLEPanelPage() {
                   disabled={isAddingToCart}
                 >
                   <ShoppingCart className="h-5 w-5 mr-2" />
-                  {isAddingToCart ? "Adding..." : `Add to Cart - $${total}`}
+                  {isAddingToCart ? 'Adding...' : `Add to Cart - $${total}`}
                 </Button>
                 <Button size="lg" variant="outline" className="flex-1 bg-transparent">
                   Get Quote
@@ -274,7 +273,7 @@ export default function MOLLEPanelPage() {
               </div>
               <div className="flex items-center gap-2 text-sm">
                 <Truck className="h-4 w-4 text-blue-600" />
-                <span>$25 flat rate shipping - Ships within 1 week</span>
+                <span>$10 flat rate shipping - Ships within 1 week</span>
               </div>
               <div className="flex items-center gap-2 text-sm">
                 <CheckCircle className="h-4 w-4 text-purple-600" />
@@ -374,52 +373,8 @@ export default function MOLLEPanelPage() {
                 <CardContent className="p-8">
                   <h3 className="text-2xl font-bold mb-4">Customer Reviews</h3>
                   <div className="space-y-6">
-                    <div className="border-b border-gray-200 pb-6">
-                      <div className="flex items-center gap-4 mb-2">
-                        <div className="flex items-center">
-                          {[...Array(5)].map((_, i) => (
-                            <Star key={i} className="h-4 w-4 fill-yellow-400 text-yellow-400" />
-                          ))}
-                        </div>
-                        <span className="font-medium">Mike R.</span>
-                        <span className="text-sm text-gray-600">Verified Purchase</span>
-                      </div>
-                      <p className="text-gray-700">
-                        "Perfect addition to my 4Runner! Installation was super easy and the quality is excellent. Love
-                        how I can customize the organization based on what I'm carrying. Great value at the sale price!"
-                      </p>
-                    </div>
-                    <div className="border-b border-gray-200 pb-6">
-                      <div className="flex items-center gap-4 mb-2">
-                        <div className="flex items-center">
-                          {[...Array(5)].map((_, i) => (
-                            <Star key={i} className="h-4 w-4 fill-yellow-400 text-yellow-400" />
-                          ))}
-                        </div>
-                        <span className="font-medium">Sarah T.</span>
-                        <span className="text-sm text-gray-600">Verified Purchase</span>
-                      </div>
-                      <p className="text-gray-700">
-                        "Great build quality and fits perfectly. The powder coating looks like it will hold up well to
-                        heavy use. Highly recommend, especially at this price!"
-                      </p>
-                    </div>
-                    <div>
-                      <div className="flex items-center gap-4 mb-2">
-                        <div className="flex items-center">
-                          {[...Array(4)].map((_, i) => (
-                            <Star key={i} className="h-4 w-4 fill-yellow-400 text-yellow-400" />
-                          ))}
-                          <Star className="h-4 w-4 text-gray-300" />
-                        </div>
-                        <span className="font-medium">Dave K.</span>
-                        <span className="text-sm text-gray-600">Verified Purchase</span>
-                      </div>
-                      <p className="text-gray-700">
-                        "Solid product, easy install. Only wish it came with some basic MOLLE accessories to get
-                        started, but overall very happy with the purchase. The sale price made it an easy decision."
-                      </p>
-                    </div>
+                    {/* Reviews removed */}
+                    <p className="text-gray-700">No reviews yet. Be the first to review this product!</p>
                   </div>
                 </CardContent>
               </Card>

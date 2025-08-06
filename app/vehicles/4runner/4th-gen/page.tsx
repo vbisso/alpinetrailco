@@ -1,7 +1,7 @@
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
-import { ArrowRight, Wrench, Shield, Clock } from "lucide-react"
+import { ArrowRight, Wrench, Shield, Clock } from 'lucide-react'
 
 export default function FourthGen4RunnerPage() {
   // Only the MOLLE panel has actual photos - everything else is coming soon
@@ -17,19 +17,19 @@ export default function FourthGen4RunnerPage() {
       status: "available",
       badge: "ON SALE",
     },
+    {
+      name: "Alpine Trail Cubby",
+      price: "$175.00",
+      image: "/images/alpine-trail/cubby-main.jpeg", // Updated image path
+      description: "Custom storage solution for rear wheel well areas with MOLLE compatibility.",
+      category: "alpine-trail/cubby", // Updated category to match product page path
+      status: "available",
+      id: 2,
+    },
   ]
 
   // All other products are coming soon
   const comingSoonProducts = [
-    {
-      name: "Alpine Trail Cubby",
-      price: "$175.00",
-      image: "/placeholder.svg?height=400&width=400&text=Alpine+Trail+Cubby",
-      description: "Custom storage solution for rear wheel well areas with MOLLE compatibility.",
-      category: "interior",
-      status: "coming-soon",
-      id: 2,
-    },
     {
       name: "Rear Window MOLLE Panel",
       price: "$275.00",
@@ -42,7 +42,7 @@ export default function FourthGen4RunnerPage() {
     {
       name: "Rear Cargo Storage MOLLE Panel",
       price: "$99.99",
-      image: "/placeholder.svg?height=400&width=400&text=Rear+Cargo+MOLLE",
+      image: "/images/alpine-trail/rear-cargo-molle-main.jpeg", // Updated image path
       description: "MOLLE panel for the removable storage compartment in the trunk, enhancing organization.",
       category: "interior",
       status: "coming-soon",
@@ -131,7 +131,7 @@ export default function FourthGen4RunnerPage() {
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
             {availableProducts.map((product, index) => (
-              <Link key={index} href={`/vehicles/4runner/4th-gen/${product.category}/${product.id}`} className="block">
+              <Link key={index} href={`/products/${product.category}`} className="block">
                 <Card className="bg-zinc-800 border-zinc-700 overflow-hidden group hover:scale-[1.02] transition-all duration-300 cursor-pointer">
                   <div className="relative aspect-square overflow-hidden">
                     <img
