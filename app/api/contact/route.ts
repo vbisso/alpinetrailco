@@ -10,7 +10,6 @@ export async function POST(request: Request) {
     await resend.emails.send({
       from: "Contact Form <contact@alpinetrailco.com>",
       to: "alpinetrailco1@gmail.com", // replace with Will's email
-      bcc: "valeriabisso19@gmailcom",
       subject: "New Contact Form Submission",
       text: `
 You have a new message:
