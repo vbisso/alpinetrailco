@@ -1,20 +1,14 @@
-"use client";
+"use client"
 
-import type React from "react";
+import type React from "react"
 
-import { useState } from "react";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Textarea } from "@/components/ui/textarea";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
-import { MapPin, Phone, Mail, Clock } from "lucide-react";
-import Link from "next/link";
+import { useState } from "react"
+import { Button } from "@/components/ui/button"
+import { Input } from "@/components/ui/input"
+import { Textarea } from "@/components/ui/textarea"
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
+import { MapPin, Phone, Mail, Clock } from "lucide-react"
+import Link from "next/link"
 
 export default function ContactPage() {
   const [formState, setFormState] = useState({
@@ -23,75 +17,43 @@ export default function ContactPage() {
     phone: "",
     vehicle: "",
     message: "",
-  });
+  })
 
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const [isSubmitted, setIsSubmitted] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false)
+  const [isSubmitted, setIsSubmitted] = useState(false)
 
-  const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
-  ) => {
-    const { name, value } = e.target;
-    setFormState((prev) => ({ ...prev, [name]: value }));
-  };
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    const { name, value } = e.target
+    setFormState((prev) => ({ ...prev, [name]: value }))
+  }
 
   const handleSelectChange = (value: string) => {
-    setFormState((prev) => ({ ...prev, vehicle: value }));
-  };
+    setFormState((prev) => ({ ...prev, vehicle: value }))
+  }
 
-  // const handleSubmit = (e: React.FormEvent) => {
-  //   e.preventDefault();
-  //   setIsSubmitting(true);
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault()
+    setIsSubmitting(true)
 
-  //   // Simulate form submission
-  //   setTimeout(() => {
-  //     setIsSubmitting(false);
-  //     setIsSubmitted(true);
-  //     setFormState({
-  //       name: "",
-  //       email: "",
-  //       phone: "",
-  //       vehicle: "",
-  //       message: "",
-  //     });
-  //   }, 1500);
-  // };
-
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setIsSubmitting(true);
-
-    const response = await fetch("/api/contact", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(formState),
-    });
-
-    const result = await response.json();
-    setIsSubmitting(false);
-
-    if (result.success) {
-      setIsSubmitted(true);
+    // Simulate form submission
+    setTimeout(() => {
+      setIsSubmitting(false)
+      setIsSubmitted(true)
       setFormState({
         name: "",
         email: "",
         phone: "",
         vehicle: "",
         message: "",
-      });
-    } else {
-      alert("There was a problem submitting the form.");
-    }
-  };
+      })
+    }, 1500)
+  }
 
   return (
     <div className="container px-4 py-12">
       <h1 className="text-3xl font-bold text-white mb-2">CONTACT US</h1>
       <p className="text-gray-300 mb-8">
-        Have questions about our products or need help with your build? We're
-        here to help!
+        Have questions about our products or need help with your build? We're here to help!
       </p>
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
@@ -101,23 +63,16 @@ export default function ContactPage() {
             <div className="text-center py-8">
               <h3 className="text-2xl font-bold text-white mb-4">Thank You!</h3>
               <p className="text-gray-300 mb-6">
-                Your message has been received. We'll get back to you as soon as
-                possible.
+                Your message has been received. We'll get back to you as soon as possible.
               </p>
-              <Button
-                onClick={() => setIsSubmitted(false)}
-                className="bg-red-600 hover:bg-red-700"
-              >
+              <Button onClick={() => setIsSubmitted(false)} className="bg-red-600 hover:bg-red-700">
                 Send Another Message
               </Button>
             </div>
           ) : (
-            <form onSubmit={handleSubmit} className="space-y-6" method="POST">
+            <form onSubmit={handleSubmit} className="space-y-6">
               <div>
-                <label
-                  htmlFor="name"
-                  className="block text-white font-medium mb-2"
-                >
+                <label htmlFor="name" className="block text-white font-medium mb-2">
                   Name
                 </label>
                 <Input
@@ -130,10 +85,7 @@ export default function ContactPage() {
                 />
               </div>
               <div>
-                <label
-                  htmlFor="email"
-                  className="block text-white font-medium mb-2"
-                >
+                <label htmlFor="email" className="block text-white font-medium mb-2">
                   Email
                 </label>
                 <Input
@@ -147,10 +99,7 @@ export default function ContactPage() {
                 />
               </div>
               <div>
-                <label
-                  htmlFor="phone"
-                  className="block text-white font-medium mb-2"
-                >
+                <label htmlFor="phone" className="block text-white font-medium mb-2">
                   Phone (Optional)
                 </label>
                 <Input
@@ -163,51 +112,27 @@ export default function ContactPage() {
                 />
               </div>
               <div>
-                <label
-                  htmlFor="vehicle"
-                  className="block text-white font-medium mb-2"
-                >
+                <label htmlFor="vehicle" className="block text-white font-medium mb-2">
                   Vehicle
                 </label>
-                <Select
-                  value={formState.vehicle}
-                  onValueChange={handleSelectChange}
-                >
+                <Select value={formState.vehicle} onValueChange={handleSelectChange}>
                   <SelectTrigger className="bg-zinc-700 border-zinc-600 text-white">
                     <SelectValue placeholder="Select your vehicle" />
                   </SelectTrigger>
                   <SelectContent className="bg-zinc-700 border-zinc-600">
-                    <SelectItem value="tacoma-4th-gen">
-                      Tacoma (4th Gen: 2024+)
-                    </SelectItem>
-                    <SelectItem value="tacoma-3rd-gen">
-                      Tacoma (3rd Gen: 2016-2023)
-                    </SelectItem>
-                    <SelectItem value="tacoma-2nd-gen">
-                      Tacoma (2nd Gen: 2005-2015)
-                    </SelectItem>
-                    <SelectItem value="4runner-6th-gen">
-                      4Runner (6th Gen: 2024+)
-                    </SelectItem>
-                    <SelectItem value="4runner-5th-gen">
-                      4Runner (5th Gen: 2010-2023)
-                    </SelectItem>
-                    <SelectItem value="4runner-4th-gen">
-                      4Runner (4th Gen: 2003-2009)
-                    </SelectItem>
-                    <SelectItem value="4runner-3rd-gen">
-                      4Runner (3rd Gen: 1996-2002)
-                    </SelectItem>
+                    <SelectItem value="tacoma-4th-gen">Tacoma (4th Gen: 2024+)</SelectItem>
+                    <SelectItem value="tacoma-3rd-gen">Tacoma (3rd Gen: 2016-2023)</SelectItem>
+                    <SelectItem value="tacoma-2nd-gen">Tacoma (2nd Gen: 2005-2015)</SelectItem>
+                    <SelectItem value="4runner-6th-gen">4Runner (6th Gen: 2024+)</SelectItem>
+                    <SelectItem value="4runner-5th-gen">4Runner (5th Gen: 2010-2023)</SelectItem>
+                    <SelectItem value="4runner-4th-gen">4Runner (4th Gen: 2003-2009)</SelectItem>
+                    <SelectItem value="4runner-3rd-gen">4Runner (3rd Gen: 1996-2002)</SelectItem>
                     <SelectItem value="other">Other</SelectItem>
                   </SelectContent>
                 </Select>
-                <input type="hidden" name="vehicle" value={formState.vehicle} />
               </div>
               <div>
-                <label
-                  htmlFor="message"
-                  className="block text-white font-medium mb-2"
-                >
+                <label htmlFor="message" className="block text-white font-medium mb-2">
                   Message
                 </label>
                 <Textarea
@@ -219,11 +144,7 @@ export default function ContactPage() {
                   className="bg-zinc-700 border-zinc-600 text-white min-h-[150px]"
                 />
               </div>
-              <Button
-                type="submit"
-                className="w-full bg-red-600 hover:bg-red-700"
-                disabled={isSubmitting}
-              >
+              <Button type="submit" className="w-full bg-red-600 hover:bg-red-700" disabled={isSubmitting}>
                 {isSubmitting ? "Sending..." : "Send Message"}
               </Button>
             </form>
@@ -233,9 +154,7 @@ export default function ContactPage() {
         {/* Contact Info */}
         <div>
           <div className="bg-zinc-800 p-8 rounded-lg mb-8">
-            <h2 className="text-xl font-bold text-white mb-6">
-              CONTACT INFORMATION
-            </h2>
+            <h2 className="text-xl font-bold text-white mb-6">CONTACT INFORMATION</h2>
             <div className="space-y-6">
               <div className="flex items-start">
                 <MapPin className="h-6 w-6 text-red-500 mr-4 flex-shrink-0 mt-0.5" />
@@ -259,10 +178,7 @@ export default function ContactPage() {
                 <Mail className="h-6 w-6 text-red-500 mr-4 flex-shrink-0 mt-0.5" />
                 <div>
                   <h3 className="font-bold text-white mb-1">Email</h3>
-                  <Link
-                    href="mailto:alpinetrailco1@gmail.com"
-                    className="text-gray-400 hover:text-red-500"
-                  >
+                  <Link href="mailto:alpinetrailco1@gmail.com" className="text-gray-400 hover:text-red-500">
                     alpinetrailco1@gmail.com
                   </Link>
                 </div>
@@ -284,44 +200,30 @@ export default function ContactPage() {
           </div>
 
           <div className="bg-zinc-800 p-8 rounded-lg">
-            <h2 className="text-xl font-bold text-white mb-6">
-              FREQUENTLY ASKED QUESTIONS
-            </h2>
+            <h2 className="text-xl font-bold text-white mb-6">FREQUENTLY ASKED QUESTIONS</h2>
             <div className="space-y-6">
               <div>
-                <h3 className="font-bold text-white mb-1">
-                  Do you offer installation services?
-                </h3>
+                <h3 className="font-bold text-white mb-1">Do you offer installation services?</h3>
                 <p className="text-gray-300">
-                  Yes, we offer professional installation at our facility.
-                  Contact us for scheduling and pricing.
+                  Yes, we offer professional installation at our facility. Contact us for scheduling and pricing.
                 </p>
               </div>
               <div>
-                <h3 className="font-bold text-white mb-1">
-                  What is your shipping policy?
-                </h3>
+                <h3 className="font-bold text-white mb-1">What is your shipping policy?</h3>
                 <p className="text-gray-300">
-                  We ship nationwide with free shipping on orders over $500.
-                  Most orders ship within 2-3 business days.
+                  We ship nationwide with free shipping on orders over $500. Most orders ship within 2-3 business days.
                 </p>
               </div>
               <div>
-                <h3 className="font-bold text-white mb-1">
-                  Do your products come with a warranty?
-                </h3>
+                <h3 className="font-bold text-white mb-1">Do your products come with a warranty?</h3>
                 <p className="text-gray-300">
-                  Yes, all our products come with a lifetime warranty against
-                  manufacturing defects.
+                  Yes, all our products come with a lifetime warranty against manufacturing defects.
                 </p>
               </div>
               <div>
-                <h3 className="font-bold text-white mb-1">
-                  Can I customize my order?
-                </h3>
+                <h3 className="font-bold text-white mb-1">Can I customize my order?</h3>
                 <p className="text-gray-300">
-                  Contact us to discuss custom options for your specific build
-                  requirements.
+                  Contact us to discuss custom options for your specific build requirements.
                 </p>
               </div>
             </div>
@@ -345,5 +247,5 @@ export default function ContactPage() {
         </div>
       </div>
     </div>
-  );
+  )
 }
