@@ -1,212 +1,137 @@
-import { Button } from "@/components/ui/button"
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
-import { ChevronRight, Truck, Shield, Clock, Zap, Flag } from "lucide-react"
+import Image from "next/image"
 import Link from "next/link"
+import { Button } from "@/components/ui/button"
+import { Card, CardContent } from "@/components/ui/card"
+import { ChevronRight, Clock, Mail } from 'lucide-react'
+import { Input } from "@/components/ui/input"
 
-export default function FourRunnerExpeditionBumperPage() {
-  const product = {
-    id: 4,
-    name: "4th Gen 4Runner Expedition Front Bumper",
-    price: "$1,499.99",
-    images: [
-      "/placeholder.svg?height=600&width=800&text=Product+Image",
-      "/placeholder.svg?height=600&width=800&text=Product+Image",
-      "/placeholder.svg?height=600&width=800&text=Product+Image",
-      "/placeholder.svg?height=600&width=800&text=Product+Image",
-    ],
-    description:
-      "Our premium expedition front bumper for the 4th Gen 4Runner is built for serious off-road adventures. Designed, cut, and welded entirely in-house in America from premium American steel. This heavy-duty bumper features integrated LED light mounts, a full skid plate, and robust recovery points. Designed for maximum protection and functionality while maintaining an aggressive expedition-ready appearance.",
-    features: [
-      "100% American made - designed, cut, and welded in-house",
-      "Premium American steel construction with reinforced mounting points",
-      "Powder-coated textured black finish for maximum durability",
-      'Integrated LED light bar mount (up to 32")',
-      "Multiple auxiliary light mounting points",
-      'Heavy-duty 1/4" steel winch plate - compatible up to 12,000 lbs with integrated fairlead mount',
-      'Heavy-duty recovery points with 3/4" shackle mounts',
-      "Full-coverage skid plate for maximum protection",
-      "Maintains factory fog light functionality",
-      "Expedition-style design with aggressive styling",
-      "Easy bolt-on installation with detailed instructions",
-      "Compatible with factory air conditioning",
-      "Includes all Grade 8 American-made mounting hardware",
-      "Proudly fabricated in Teton County, Idaho",
-    ],
-    specs: {
-      material: "Premium American Steel with reinforcements",
-      winchPlate: '1/4" American Steel',
-      finish: "Textured Powder Coat",
-      weight: "165 lbs",
-      winchCapacity: "12,000 lbs",
-      lightBarSize: 'Up to 32"',
-      compatibleYears: "2003-2009 Toyota 4Runner",
-      leadTime: "6-8 weeks",
-      madeIn: "100% American Made",
-      fabricatedIn: "Teton County, Idaho",
-      includedHardware: "Yes, Grade 8 American hardware included",
-      approachAngle: "Optimized for off-road performance",
+export default function HighClearanceBumperPage() {
+  const relatedProducts = [
+    {
+      id: "expedition-front-bumper",
+      name: "Expedition Series Front Bumper",
+      price: "$1,850.00",
+      image: "/images/coming-soon-placeholder.jpeg",
+      href: "/vehicles/4runner/4th-gen/front-bumpers/1",
     },
-    installationNotes:
-      "Professional installation recommended due to weight and complexity. Detailed installation instructions included with all necessary hardware. May require removal of factory components. Compatible with most aftermarket winches and light bars.",
-    compatibility: [
-      "All 4th Gen 4Runner models (2003-2009)",
-      "SR5, Sport, Limited trims",
-      "2WD and 4WD variants",
-      "Compatible with factory air conditioning",
-      "Works with most aftermarket skid plates",
-      "Compatible with aftermarket suspension systems",
-    ],
-  }
+    {
+      id: "standard-rock-sliders",
+      name: "Standard Rock Sliders",
+      price: "$950.00",
+      image: "/images/coming-soon-placeholder.jpeg",
+      href: "/vehicles/4runner/4th-gen/rock-sliders/1",
+    },
+    {
+      id: "alpine-trail-cubby",
+      name: "Alpine Trail Cubby",
+      price: "$175.00",
+      image: "/images/alpine-trail/cubby-installed.jpeg",
+      href: "/products/alpine-trail/cubby",
+    },
+  ]
 
   return (
-    <div className="container px-4 py-12">
-      {/* Breadcrumb */}
-      <div className="flex items-center text-sm text-gray-400 mb-8">
-        <Link href="/" className="hover:text-charcoal-600">
-          Home
-        </Link>
-        <ChevronRight className="h-4 w-4 mx-2" />
-        <Link href="/vehicles/4runner" className="hover:text-charcoal-600">
-          4Runner
-        </Link>
-        <ChevronRight className="h-4 w-4 mx-2" />
-        <Link href="/vehicles/4runner/4th-gen" className="hover:text-charcoal-600">
-          4th Gen
-        </Link>
-        <ChevronRight className="h-4 w-4 mx-2" />
-        <Link href="/vehicles/4runner/4th-gen/front-bumpers" className="hover:text-charcoal-600">
-          Front Bumpers
-        </Link>
-        <ChevronRight className="h-4 w-4 mx-2" />
-        <span className="text-gray-600">{product.name}</span>
-      </div>
+    <div className="bg-white">
+      <div className="container mx-auto px-4 py-12">
+        <nav className="flex items-center text-sm text-gray-500 mb-8">
+          <Link href="/" className="hover:text-gray-700">Home</Link>
+          <ChevronRight className="h-4 w-4 mx-2" />
+          <Link href="/vehicles/4runner" className="hover:text-gray-700">4Runner</Link>
+          <ChevronRight className="h-4 w-4 mx-2" />
+          <Link href="/vehicles/4runner/4th-gen" className="hover:text-gray-700">4th Gen</Link>
+          <ChevronRight className="h-4 w-4 mx-2" />
+          <Link href="/vehicles/4runner/4th-gen/front-bumpers" className="hover:text-gray-700">Front Bumpers</Link>
+          <ChevronRight className="h-4 w-4 mx-2" />
+          <span className="font-medium text-gray-800">High Clearance Front Bumper</span>
+        </nav>
 
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
-        {/* Product Images */}
-        <div className="space-y-4">
-          <div className="aspect-video bg-gray-100 rounded-lg overflow-hidden">
-            <img
-              src={product.images[0] || "/placeholder.svg"}
-              alt={product.name}
-              className="w-full h-full object-contain"
-            />
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
+          {/* Image Gallery */}
+          <div>
+            <div className="aspect-square w-full rounded-lg overflow-hidden bg-gray-100 mb-4">
+              <Image
+                src="/images/coming-soon-placeholder.jpeg"
+                alt="High Clearance Front Bumper"
+                width={800}
+                height={800}
+                className="w-full h-full object-cover"
+              />
+            </div>
           </div>
-          <div className="grid grid-cols-4 gap-4">
-            {product.images.map((image, index) => (
-              <div key={index} className="aspect-square bg-gray-100 rounded-lg overflow-hidden cursor-pointer">
-                <img
-                  src={image || "/placeholder.svg"}
-                  alt={`${product.name} view ${index + 1}`}
-                  className="w-full h-full object-contain"
-                />
+
+          {/* Product Info */}
+          <div>
+            <h1 className="text-3xl lg:text-4xl font-bold tracking-tight text-gray-900">High Clearance Front Bumper</h1>
+            <p className="mt-4 text-3xl text-gray-900">$1,650.00</p>
+
+            <div className="mt-6">
+              <div className="bg-yellow-100 border-l-4 border-yellow-500 text-yellow-700 p-4 rounded-md" role="alert">
+                <div className="flex items-center">
+                  <Clock className="h-6 w-6 mr-3" />
+                  <p className="font-bold">Coming Soon!</p>
+                </div>
+                <p className="mt-2">This product is currently in development. Sign up below to be notified when it becomes available for pre-order.</p>
               </div>
-            ))}
+            </div>
+
+            <div className="mt-8">
+              <h3 className="text-lg font-medium text-gray-900">Description</h3>
+              <div className="mt-4 text-gray-600 space-y-4">
+                <p>
+                  Maximize your 4th Gen 4Runner's off-road potential with our High Clearance Front Bumper. This bumper is designed for aggressive trail use, providing a significantly improved approach angle and rugged durability without unnecessary weight.
+                </p>
+              </div>
+            </div>
+
+            <div className="mt-8">
+              <h3 className="text-lg font-medium text-gray-900">Features</h3>
+              <ul className="mt-4 list-disc list-inside text-gray-600 space-y-2">
+                <li>High-clearance design for superior approach angle</li>
+                <li>Lightweight yet strong steel construction</li>
+                <li>Integrated light bar and pod mounts</li>
+                <li>CNC cut and formed for a precise fit</li>
+                <li>Durable black powder coat finish</li>
+                <li>Requires trimming of factory bumper plastic for installation</li>
+              </ul>
+            </div>
+
+            <div className="mt-8">
+              <h3 className="text-lg font-medium text-gray-900">Get Notified</h3>
+              <p className="text-gray-600 mt-2">Be the first to know when this product is available.</p>
+              <div className="mt-4 flex gap-2">
+                <Input type="email" placeholder="Your email address" className="flex-grow" />
+                <Button className="bg-charcoal-700 hover:bg-charcoal-600 text-white">
+                  <Mail className="h-4 w-4 mr-2" />
+                  Notify Me
+                </Button>
+              </div>
+            </div>
           </div>
         </div>
 
-        {/* Product Info */}
-        <div>
-          <h1 className="text-3xl font-bold text-gray-900 mb-2">{product.name}</h1>
-          <p className="text-2xl text-charcoal-600 font-bold mb-6">{product.price}</p>
-
-          {/* American Made Badge */}
-          <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-6">
-            <div className="flex items-center">
-              <Flag className="h-6 w-6 text-blue-600 mr-3" />
-              <div>
-                <h3 className="font-bold text-blue-800">100% AMERICAN MADE</h3>
-                <p className="text-blue-700 text-sm">Designed, cut, and welded in-house in Teton County, Idaho</p>
-              </div>
-            </div>
-          </div>
-
-          <div className="bg-orange-50 border border-orange-200 rounded-lg p-4 mb-6">
-            <div className="flex items-center">
-              <Clock className="h-5 w-5 text-orange-600 mr-2" />
-              <span className="text-orange-800 font-medium">Made to Order - 6-8 week lead time</span>
-            </div>
-          </div>
-
-          <p className="text-gray-600 mb-6">{product.description}</p>
-
-          <div className="space-y-6 mb-8">
-            <div className="flex items-center text-gray-600">
-              <Flag className="h-5 w-5 mr-2 text-blue-600" />
-              <span>100% American made with premium American steel</span>
-            </div>
-            <div className="flex items-center text-gray-600">
-              <Truck className="h-5 w-5 mr-2 text-charcoal-600" />
-              <span>Free shipping on orders over $500</span>
-            </div>
-            <div className="flex items-center text-gray-600">
-              <Shield className="h-5 w-5 mr-2 text-charcoal-600" />
-              <span>Lifetime warranty against manufacturing defects</span>
-            </div>
-            <div className="flex items-center text-gray-600">
-              <Zap className="h-5 w-5 mr-2 text-charcoal-600" />
-              <span>Heavy-duty 1/4" steel winch plate with full skid protection</span>
-            </div>
-          </div>
-
-          <Button className="w-full bg-charcoal-700 hover:bg-charcoal-600 text-white text-lg py-6 mb-6">
-            ORDER NOW
-          </Button>
-
-          <Tabs defaultValue="features" className="mt-8">
-            <TabsList className="grid grid-cols-4 bg-gray-100">
-              <TabsTrigger value="features">Features</TabsTrigger>
-              <TabsTrigger value="specs">Specifications</TabsTrigger>
-              <TabsTrigger value="installation">Installation</TabsTrigger>
-              <TabsTrigger value="compatibility">Compatibility</TabsTrigger>
-            </TabsList>
-            <TabsContent value="features" className="mt-4">
-              <ul className="list-disc pl-5 space-y-2 text-gray-600">
-                {product.features.map((feature, index) => (
-                  <li key={index}>{feature}</li>
-                ))}
-              </ul>
-            </TabsContent>
-            <TabsContent value="specs" className="mt-4">
-              <div className="space-y-2">
-                {Object.entries(product.specs).map(([key, value]) => (
-                  <div key={key} className="grid grid-cols-2 border-b border-gray-200 py-2">
-                    <span className="text-gray-500">
-                      {key.replace(/([A-Z])/g, " $1").replace(/^./, (str) => str.toUpperCase())}
-                    </span>
-                    <span className="text-gray-600">{value}</span>
+        {/* Related Products */}
+        <div className="mt-24">
+          <h2 className="text-2xl font-bold tracking-tight text-gray-900 text-center">You Might Also Like</h2>
+          <div className="mt-8 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {relatedProducts.map((product) => (
+              <Card key={product.id} className="overflow-hidden group">
+                <Link href={product.href}>
+                  <div className="relative aspect-square w-full overflow-hidden">
+                    <Image src={product.image || "/placeholder.svg"} alt={product.name} layout="fill" objectFit="cover" className="group-hover:scale-105 transition-transform duration-300" />
                   </div>
-                ))}
-              </div>
-            </TabsContent>
-            <TabsContent value="installation" className="mt-4">
-              <p className="text-gray-600 mb-4">{product.installationNotes}</p>
-              <div className="bg-gray-50 p-4 rounded-lg">
-                <h4 className="font-bold text-gray-900 mb-2">Installation Overview:</h4>
-                <ol className="list-decimal pl-5 space-y-1 text-gray-600">
-                  <li>Remove factory bumper and components</li>
-                  <li>Install mounting brackets using provided hardware</li>
-                  <li>Mount bumper to brackets (requires 2+ people due to weight)</li>
-                  <li>Connect fog lights (if equipped)</li>
-                  <li>Install winch and light bar (optional)</li>
-                  <li>Final inspection and testing</li>
-                </ol>
-              </div>
-            </TabsContent>
-            <TabsContent value="compatibility" className="mt-4">
-              <p className="text-gray-600 mb-4">This bumper is compatible with:</p>
-              <ul className="list-disc pl-5 space-y-2 text-gray-600">
-                {product.compatibility.map((item, index) => (
-                  <li key={index}>{item}</li>
-                ))}
-              </ul>
-              <div className="mt-4 p-4 bg-gray-50 rounded-lg">
-                <p className="text-sm text-gray-500">
-                  <strong>Note:</strong> Please verify your specific model year and trim level before ordering. Contact
-                  us if you have any questions about compatibility.
-                </p>
-              </div>
-            </TabsContent>
-          </Tabs>
+                </Link>
+                <CardContent className="p-4">
+                  <h3 className="text-lg font-semibold text-gray-900">{product.name}</h3>
+                  <div className="flex justify-between items-center mt-4">
+                    <p className="text-lg font-bold text-gray-900">{product.price}</p>
+                    <Button asChild>
+                      <Link href={product.href}>View Details</Link>
+                    </Button>
+                  </div>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
         </div>
       </div>
     </div>

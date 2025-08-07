@@ -1,258 +1,127 @@
-import Link from "next/link"
-import { Button } from "@/components/ui/button"
-import { Card, CardContent } from "@/components/ui/card"
-import { ArrowRight, Wrench, Shield, Clock } from 'lucide-react'
+import Image from 'next/image';
+import Link from 'next/link';
+import { ChevronRight } from 'lucide-react';
+import ProductCard from '@/components/ProductCard';
+import BajaDesignsShowcase from '@/components/baja-designs-showcase';
+
+const availableProducts = [
+  {
+    name: 'Expedition Series Front Bumper',
+    description: 'Full-width protection with winch compatibility.',
+    price: '$1,899.99',
+    imageUrl: '/images/4runner-expedition-bumper-front-1.png',
+    link: '/vehicles/4runner/4th-gen/front-bumpers/1',
+  },
+  {
+    name: 'High Clearance Front Bumper',
+    description: 'Maximum approach angle and aggressive styling.',
+    price: '$1,699.99',
+    imageUrl: '/images/4runner-high-clearance-bumper-front-view.png',
+    link: '/vehicles/4runner/4th-gen/front-bumpers/4',
+  },
+  {
+    name: 'Rock Sliders',
+    description: 'Essential body protection for serious trails.',
+    price: '$949.99',
+    imageUrl: '/images/4runner-rock-sliders-1.jpeg',
+    link: '/vehicles/4runner/4th-gen/rock-sliders/1',
+  },
+  {
+    name: 'Center Console MOLLE Panel',
+    description: 'Organize your gear with easy-access mounting.',
+    price: '$129.99',
+    imageUrl: '/images/4runner-molle-panel-main.png',
+    link: '/vehicles/4runner/4th-gen/interior/1',
+  },
+  {
+    name: 'Rear Cargo MOLLE Panels',
+    description: 'Maximize your cargo area organization.',
+    price: '$249.99',
+    imageUrl: '/images/4runner-rear-cargo-molle.jpeg',
+    link: '/vehicles/4runner/4th-gen/interior/2',
+  },
+  {
+    name: 'Alpine Trail Cubby',
+    description: 'Replaces the ashtray with useful storage.',
+    price: '$149.99',
+    imageUrl: '/images/alpine-trail/cubby.jpeg',
+    link: '/products/alpine-trail/cubby',
+  },
+  {
+    name: 'Alpine Trail Co. Signature Tee',
+    description: 'Rep the brand with our premium quality t-shirt.',
+    price: '$29.99',
+    imageUrl: '/images/merch/alpine-trail-shirt-front.png',
+    link: '/products/merch/shirt',
+  },
+];
+
+const comingSoonProducts = [
+  {
+    name: 'Full Roof Rack',
+    description: 'Low-profile and modular for all your gear.',
+    imageUrl: '/images/coming-soon-placeholder.jpeg',
+  },
+  {
+    name: 'Rear Bumper System',
+    description: 'Complete your armor with optional swing-outs.',
+    imageUrl: '/images/coming-soon-placeholder.jpeg',
+  },
+  {
+    name: 'Skid Plate Package',
+    description: 'Full underbody protection from front to back.',
+    imageUrl: '/images/coming-soon-placeholder.jpeg',
+  },
+];
 
 export default function FourthGen4RunnerPage() {
-  // Only the MOLLE panel has actual photos - everything else is coming soon
-  const availableProducts = [
-    {
-      id: 1,
-      name: "Center Console MOLLE Panel",
-      price: "$120.00",
-      originalPrice: "$149.99",
-      image: "/images/4runner-molle-panel-installed-1.jpeg",
-      description: "Laser-cut MOLLE panel for organizing gear in your center console.",
-      category: "interior",
-      status: "available",
-      badge: "ON SALE",
-    },
-    {
-      name: "Alpine Trail Cubby",
-      price: "$175.00",
-      image: "/images/alpine-trail/cubby-main.jpeg", // Updated image path
-      description: "Custom storage solution for rear wheel well areas with MOLLE compatibility.",
-      category: "alpine-trail/cubby", // Updated category to match product page path
-      status: "available",
-      id: 2,
-    },
-  ]
-
-  // All other products are coming soon
-  const comingSoonProducts = [
-    {
-      name: "Rear Window MOLLE Panel",
-      price: "$275.00",
-      image: "/placeholder.svg?height=400&width=400&text=Rear+Window+MOLLE",
-      description: "MOLLE panel for rear window interior using factory bolt holes with left/right options.",
-      category: "interior",
-      status: "coming-soon",
-      id: 3,
-    },
-    {
-      name: "Rear Cargo Storage MOLLE Panel",
-      price: "$99.99",
-      image: "/images/alpine-trail/rear-cargo-molle-main.jpeg", // Updated image path
-      description: "MOLLE panel for the removable storage compartment in the trunk, enhancing organization.",
-      category: "interior",
-      status: "coming-soon",
-      id: 4,
-    },
-    {
-      name: "High Clearance Front Bumper",
-      price: "$2,250.00",
-      originalPrice: "$2,500.00",
-      image: "/images/coming-soon-placeholder.jpeg",
-      description: "Premium steel construction with integrated light mounts and recovery points.",
-      category: "front-bumpers",
-      status: "coming-soon",
-      badge: "PRE-ORDER SALE",
-      id: 1, // This ID is for the specific bumper product page
-    },
-    {
-      name: "Expedition Front Bumper",
-      price: "$1,499.99",
-      image: "/images/coming-soon-placeholder.jpeg",
-      description: "Heavy-duty expedition bumper with winch mount and maximum protection.",
-      category: "front-bumpers",
-      status: "coming-soon",
-    },
-    {
-      name: "Heavy Duty Rock Sliders",
-      price: "$899.99",
-      image: "/images/coming-soon-placeholder.jpeg",
-      description: "Bolt-on rock sliders with integrated step and maximum protection.",
-      category: "rock-sliders",
-      status: "coming-soon",
-    },
-    {
-      name: "Rear Bumper with Swing-Outs",
-      description: "Heavy-duty rear bumper with tire carrier and jerry can mounts.",
-      category: "rear-bumpers",
-      status: "coming-soon",
-    },
-    {
-      name: "Skid Plate Package",
-      description: "Complete underbody protection for engine, transmission, and transfer case.",
-      category: "skid-plates",
-      status: "coming-soon",
-    },
-    {
-      name: "Roof Rack System",
-      description: "Modular roof rack with multiple mounting configurations.",
-      category: "roof-racks",
-      status: "coming-soon",
-    },
-  ]
-
   return (
-    <div className="min-h-screen bg-black text-white">
-      <div className="container px-4 py-12">
-        {/* Hero Section */}
-        <div className="relative h-96 rounded-lg overflow-hidden mb-12">
-          <div className="absolute inset-0 bg-black/50 flex items-center justify-center">
-            <div className="text-center">
-              <h1 className="text-5xl font-bold text-white mb-4">4TH GEN 4RUNNER</h1>
-              <p className="text-xl text-gray-200 mb-6">2003-2009 • Premium Off-Road Accessories</p>
-              <p className="text-lg text-gray-300 max-w-2xl mx-auto">
-                Our main production focus - engineered specifically for the 4th generation 4Runner
-              </p>
-            </div>
-          </div>
-          <img
-            src="/images/4runner-4th-gen-stock.jpg"
-            alt="4th Gen Toyota 4Runner"
-            className="w-full h-full object-cover"
-          />
+    <div className="bg-gray-50">
+      <div className="relative h-[400px] w-full">
+        <Image
+          src="/images/4runner-4th-gen-hero-1.jpeg"
+          alt="4th Gen 4Runner on a trail"
+          layout="fill"
+          objectFit="cover"
+          className="brightness-75"
+        />
+        <div className="absolute inset-0 flex flex-col items-center justify-center text-white text-center p-4">
+          <h1 className="text-4xl md:text-6xl font-extrabold tracking-tight">4th Gen 4Runner</h1>
+          <p className="mt-2 text-lg md:text-xl max-w-2xl">
+            (2003-2009) - The perfect blend of modern capability and classic reliability. Build yours to conquer any terrain.
+          </p>
+        </div>
+      </div>
+
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        <div className="flex items-center space-x-2 text-sm text-gray-500 mb-12">
+          <Link href="/" className="hover:text-gray-700">Home</Link>
+          <ChevronRight size={16} />
+          <Link href="/vehicles/4runner" className="hover:text-gray-700">4Runner</Link>
+          <ChevronRight size={16} />
+          <span className="font-medium text-gray-800">4th Gen (2003-2009)</span>
         </div>
 
-        {/* Available Products */}
-        <section className="mb-16">
-          <div className="flex items-center justify-between mb-8">
-            <div>
-              <h2 className="text-3xl font-bold text-white mb-2">AVAILABLE NOW</h2>
-              <div className="h-1 w-16 bg-red-600"></div>
-            </div>
-            <div className="flex items-center text-green-500">
-              <Shield className="h-5 w-5 mr-2" />
-              <span className="font-medium">In Production</span>
-            </div>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
-            {availableProducts.map((product, index) => (
-              <Link key={index} href={`/products/${product.category}`} className="block">
-                <Card className="bg-zinc-800 border-zinc-700 overflow-hidden group hover:scale-[1.02] transition-all duration-300 cursor-pointer">
-                  <div className="relative aspect-square overflow-hidden">
-                    <img
-                      src={product.image || "/placeholder.svg"}
-                      alt={product.name}
-                      className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
-                    />
-                    {product.badge && (
-                      <div
-                        className={`absolute top-2 left-2 text-white text-xs font-bold px-3 py-1 rounded-full ${
-                          product.badge === "ON SALE"
-                            ? "bg-red-600"
-                            : product.badge === "AVAILABLE"
-                              ? "bg-green-600"
-                              : "bg-orange-600"
-                        }`}
-                      >
-                        {product.badge}
-                      </div>
-                    )}
-                  </div>
-                  <CardContent className="p-4">
-                    <h3 className="font-bold text-white text-lg mb-2 group-hover:text-red-500 transition-colors">
-                      {product.name}
-                    </h3>
-                    <p className="text-gray-300 mb-3 text-sm line-clamp-2">{product.description}</p>
-                    <div className="flex items-center space-x-2 mb-4">
-                      <p className="text-red-500 font-bold">{product.price}</p>
-                      {product.originalPrice && (
-                        <p className="text-sm text-gray-500 line-through">{product.originalPrice}</p>
-                      )}
-                    </div>
-                    <div className="text-center text-sm text-gray-400 group-hover:text-red-500 transition-colors">
-                      Click to view details →
-                    </div>
-                  </CardContent>
-                </Card>
-              </Link>
+        <section id="available-now" className="mb-16">
+          <h2 className="text-3xl font-bold text-gray-900 mb-8 text-center">Available Now</h2>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
+            {availableProducts.map((product) => (
+              <ProductCard key={product.name} {...product} />
             ))}
           </div>
         </section>
 
-        {/* Coming Soon Products */}
-        <section className="mb-16">
-          <div className="flex items-center justify-between mb-8">
-            <div>
-              <h2 className="text-3xl font-bold text-white mb-2">COMING SOON</h2>
-              <div className="h-1 w-16 bg-orange-500"></div>
-            </div>
-            <div className="flex items-center text-orange-500">
-              <Clock className="h-5 w-5 mr-2" />
-              <span className="font-medium">In Development</span>
-            </div>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {comingSoonProducts.map((product, index) => (
-              <Card key={index} className="bg-zinc-800 border-zinc-700 border-dashed opacity-75">
-                <div className="aspect-square overflow-hidden">
-                  <img
-                    src={product.image || "/images/coming-soon-placeholder.jpeg"}
-                    alt={product.name}
-                    className="w-full h-full object-cover"
-                  />
-                </div>
-                <CardContent className="p-4">
-                  <h3 className="font-bold text-white text-lg mb-2">{product.name}</h3>
-                  <p className="text-gray-300 mb-4 text-sm">{product.description}</p>
-                  {product.price && (
-                    <div className="flex items-center space-x-2 mb-4">
-                      <p className="text-orange-500 font-bold">{product.price}</p>
-                      {product.originalPrice && (
-                        <p className="text-sm text-gray-500 line-through">{product.originalPrice}</p>
-                      )}
-                    </div>
-                  )}
-                  {product.id ? (
-                    <Link href={`/vehicles/4runner/4th-gen/${product.category}/${product.id}`}>
-                      <Button className="w-full bg-orange-600 hover:bg-orange-700">LEARN MORE</Button>
-                    </Link>
-                  ) : (
-                    <Button disabled className="w-full bg-zinc-600 text-gray-400 cursor-not-allowed">
-                      NOTIFY WHEN AVAILABLE
-                    </Button>
-                  )}
-                </CardContent>
-              </Card>
+        <section id="coming-soon" className="mb-16">
+          <h2 className="text-3xl font-bold text-gray-900 mb-8 text-center">Coming Soon</h2>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
+            {comingSoonProducts.map((product) => (
+              <ProductCard key={product.name} {...product} isComingSoon />
             ))}
           </div>
         </section>
 
-        {/* Why Choose 4th Gen */}
-        <section className="bg-zinc-800 rounded-lg p-8">
-          <h2 className="text-3xl font-bold text-white mb-6 text-center">WHY 4TH GEN 4RUNNER?</h2>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <div className="text-center">
-              <Shield className="h-12 w-12 text-red-500 mx-auto mb-4" />
-              <h3 className="text-xl font-bold text-white mb-2">Proven Platform</h3>
-              <p className="text-gray-300">
-                The 4th generation 4Runner is known for its reliability and off-road capability, making it the perfect
-                platform for our accessories.
-              </p>
-            </div>
-            <div className="text-center">
-              <Wrench className="h-12 w-12 text-red-500 mx-auto mb-4" />
-              <h3 className="text-xl font-bold text-white mb-2">Perfect Fit</h3>
-              <p className="text-gray-300">
-                Every product is designed specifically for the 4th gen, ensuring perfect fitment and maximum
-                performance.
-              </p>
-            </div>
-            <div className="text-center">
-              <ArrowRight className="h-12 w-12 text-red-500 mx-auto mb-4" />
-              <h3 className="text-xl font-bold text-white mb-2">Our Focus</h3>
-              <p className="text-gray-300">
-                As our main production focus, 4th gen products receive priority development and fastest lead times.
-              </p>
-            </div>
-          </div>
-        </section>
+        <BajaDesignsShowcase />
       </div>
     </div>
-  )
+  );
 }

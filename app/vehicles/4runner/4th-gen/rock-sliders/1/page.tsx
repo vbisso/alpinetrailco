@@ -1,211 +1,136 @@
-import { Button } from "@/components/ui/button"
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
-import { ChevronRight, Truck, Shield, Clock, Zap } from "lucide-react"
+import Image from "next/image"
 import Link from "next/link"
+import { Button } from "@/components/ui/button"
+import { Card, CardContent } from "@/components/ui/card"
+import { ChevronRight, Clock, Mail } from 'lucide-react'
+import { Input } from "@/components/ui/input"
 
-export default function FourRunnerRockSlidersPage() {
-  const product = {
-    id: 1,
-    name: "4th Gen 4Runner Heavy Duty Rock Sliders",
-    price: "$899.99",
-    images: [
-      "/images/4runner-rock-sliders-1.jpeg",
-      "/images/4runner-rock-sliders-2.jpeg",
-      "/images/4runner-rock-sliders-installed-1.jpeg",
-      "/images/4runner-rock-sliders-installed-2.jpeg",
-    ],
-    description:
-      "Our heavy-duty rock sliders for the 4th Gen 4Runner provide maximum rocker panel protection while maintaining excellent ground clearance. Designed, cut, and welded entirely in-house in America from premium American steel tubing. Precision-engineered with integrated kick-out steps for easy vehicle access and built to withstand the most demanding off-road conditions.",
-    features: [
-      "100% American made - designed, cut, and welded in-house",
-      "Premium American DOM steel tubing construction",
-      "Powder-coated textured black finish for maximum durability",
-      "Integrated kick-out step for easy access",
-      "Body-mounted design for maximum strength",
-      "Heavy-duty mounting brackets with reinforced steel",
-      "Maintains factory ground clearance",
-      "Designed for optimal approach and departure angles",
-      "Easy bolt-on installation with no cutting required",
-      "Compatible with factory running boards removal",
-      "Includes all Grade 8 American-made mounting hardware",
-      "Proudly fabricated in Teton County, Idaho",
-    ],
-    specs: {
-      material: "Premium American DOM Steel Tubing",
-      finish: "Textured Powder Coat",
-      weight: "85 lbs (pair)",
-      mounting: "Body-mounted to frame",
-      stepHeight: '8" from ground',
-      compatibleYears: "2003-2009 Toyota 4Runner",
-      leadTime: "4-6 weeks",
-      madeIn: "100% American Made",
-      fabricatedIn: "Teton County, Idaho",
-      includedHardware: "Yes, Grade 8 American hardware included",
-      groundClearance: "Maintains factory clearance",
+export default function StandardRockSlidersPage() {
+  const relatedProducts = [
+    {
+      id: "expedition-front-bumper",
+      name: "Expedition Series Front Bumper",
+      price: "$1,850.00",
+      image: "/images/coming-soon-placeholder.jpeg",
+      href: "/vehicles/4runner/4th-gen/front-bumpers/1",
     },
-    installationNotes:
-      "Professional installation recommended but not required. Installation requires removal of factory running boards (if equipped). All necessary hardware and detailed instructions included.",
-    compatibility: [
-      "All 4th Gen 4Runner models (2003-2009)",
-      "SR5, Sport, Limited trims",
-      "2WD and 4WD variants",
-      "Compatible with most aftermarket bumpers",
-      "Works with factory and aftermarket skid plates",
-    ],
-  }
+    {
+      id: "high-clearance-front-bumper",
+      name: "High Clearance Front Bumper",
+      price: "$1,650.00",
+      image: "/images/coming-soon-placeholder.jpeg",
+      href: "/vehicles/4runner/4th-gen/front-bumpers/4",
+    },
+    {
+      id: "alpine-trail-cubby",
+      name: "Alpine Trail Cubby",
+      price: "$175.00",
+      image: "/images/alpine-trail/cubby-installed.jpeg",
+      href: "/products/alpine-trail/cubby",
+    },
+  ]
 
   return (
-    <div className="container px-4 py-12">
-      {/* Breadcrumb */}
-      <div className="flex items-center text-sm text-gray-400 mb-8">
-        <Link href="/" className="hover:text-charcoal-600">
-          Home
-        </Link>
-        <ChevronRight className="h-4 w-4 mx-2" />
-        <Link href="/vehicles/4runner" className="hover:text-charcoal-600">
-          4Runner
-        </Link>
-        <ChevronRight className="h-4 w-4 mx-2" />
-        <Link href="/vehicles/4runner/4th-gen" className="hover:text-charcoal-600">
-          4th Gen
-        </Link>
-        <ChevronRight className="h-4 w-4 mx-2" />
-        <Link href="/vehicles/4runner/4th-gen/rock-sliders" className="hover:text-charcoal-600">
-          Rock Sliders
-        </Link>
-        <ChevronRight className="h-4 w-4 mx-2" />
-        <span className="text-gray-600">{product.name}</span>
-      </div>
+    <div className="bg-white">
+      <div className="container mx-auto px-4 py-12">
+        <nav className="flex items-center text-sm text-gray-500 mb-8">
+          <Link href="/" className="hover:text-gray-700">Home</Link>
+          <ChevronRight className="h-4 w-4 mx-2" />
+          <Link href="/vehicles/4runner" className="hover:text-gray-700">4Runner</Link>
+          <ChevronRight className="h-4 w-4 mx-2" />
+          <Link href="/vehicles/4runner/4th-gen" className="hover:text-gray-700">4th Gen</Link>
+          <ChevronRight className="h-4 w-4 mx-2" />
+          <Link href="/vehicles/4runner/4th-gen/rock-sliders" className="hover:text-gray-700">Rock Sliders</Link>
+          <ChevronRight className="h-4 w-4 mx-2" />
+          <span className="font-medium text-gray-800">Standard Rock Sliders</span>
+        </nav>
 
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
-        {/* Product Images */}
-        <div className="space-y-4">
-          <div className="aspect-video bg-gray-100 rounded-lg overflow-hidden">
-            <img
-              src={product.images[0] || "/placeholder.svg"}
-              alt={product.name}
-              className="w-full h-full object-contain"
-            />
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
+          {/* Image Gallery */}
+          <div>
+            <div className="aspect-square w-full rounded-lg overflow-hidden bg-gray-100 mb-4">
+              <Image
+                src="/images/coming-soon-placeholder.jpeg"
+                alt="Standard Rock Sliders"
+                width={800}
+                height={800}
+                className="w-full h-full object-cover"
+              />
+            </div>
           </div>
-          <div className="grid grid-cols-4 gap-4">
-            {product.images.map((image, index) => (
-              <div key={index} className="aspect-square bg-gray-100 rounded-lg overflow-hidden cursor-pointer">
-                <img
-                  src={image || "/placeholder.svg"}
-                  alt={`${product.name} view ${index + 1}`}
-                  className="w-full h-full object-contain"
-                />
+
+          {/* Product Info */}
+          <div>
+            <h1 className="text-3xl lg:text-4xl font-bold tracking-tight text-gray-900">Standard Rock Sliders</h1>
+            <p className="mt-4 text-3xl text-gray-900">$950.00</p>
+
+            <div className="mt-6">
+              <div className="bg-yellow-100 border-l-4 border-yellow-500 text-yellow-700 p-4 rounded-md" role="alert">
+                <div className="flex items-center">
+                  <Clock className="h-6 w-6 mr-3" />
+                  <p className="font-bold">Coming Soon!</p>
+                </div>
+                <p className="mt-2">This product is currently in development. Sign up below to be notified when it becomes available for pre-order.</p>
               </div>
-            ))}
+            </div>
+
+            <div className="mt-8">
+              <h3 className="text-lg font-medium text-gray-900">Description</h3>
+              <div className="mt-4 text-gray-600 space-y-4">
+                <p>
+                  Protect your 4th Gen 4Runner's rocker panels from rocks, stumps, and other trail hazards with our heavy-duty rock sliders. These sliders are built to take a beating, providing peace of mind on the toughest trails.
+                </p>
+              </div>
+            </div>
+
+            <div className="mt-8">
+              <h3 className="text-lg font-medium text-gray-900">Features</h3>
+              <ul className="mt-4 list-disc list-inside text-gray-600 space-y-2">
+                <li>Frame-mounted for maximum strength</li>
+                <li>Optional kick-out for added protection and use as a step</li>
+                <li>CNC cut and formed from heavy-duty steel tubing</li>
+                <li>Durable black powder coat finish</li>
+                <li>Bolt-on installation</li>
+              </ul>
+            </div>
+
+            <div className="mt-8">
+              <h3 className="text-lg font-medium text-gray-900">Get Notified</h3>
+              <p className="text-gray-600 mt-2">Be the first to know when this product is available.</p>
+              <div className="mt-4 flex gap-2">
+                <Input type="email" placeholder="Your email address" className="flex-grow" />
+                <Button className="bg-charcoal-700 hover:bg-charcoal-600 text-white">
+                  <Mail className="h-4 w-4 mr-2" />
+                  Notify Me
+                </Button>
+              </div>
+            </div>
           </div>
         </div>
 
-        {/* Product Info */}
-        <div>
-          <h1 className="text-3xl font-bold text-gray-900 mb-2">{product.name}</h1>
-          <p className="text-2xl text-charcoal-600 font-bold mb-6">{product.price}</p>
-
-          {/* American Made Badge */}
-          <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-6 relative">
-            <div className="absolute top-2 right-2">
-              <img src="/images/usa-flag.jpg" alt="American Flag" className="h-6 w-8 rounded shadow-sm" />
-            </div>
-            <div className="flex items-center">
-              <img src="/images/usa-flag.jpg" alt="American Flag" className="h-6 w-8 mr-3 rounded shadow-sm" />
-              <div>
-                <h3 className="font-bold text-blue-800">100% AMERICAN MADE</h3>
-                <p className="text-blue-700 text-sm">Designed, cut, and welded in-house in Teton County, Idaho</p>
-              </div>
-            </div>
-          </div>
-
-          <div className="bg-orange-50 border border-orange-200 rounded-lg p-4 mb-6">
-            <div className="flex items-center">
-              <Clock className="h-5 w-5 text-orange-600 mr-2" />
-              <span className="text-orange-800 font-medium">Made to Order - 4-6 week lead time</span>
-            </div>
-          </div>
-
-          <p className="text-gray-600 mb-6">{product.description}</p>
-
-          <div className="space-y-6 mb-8">
-            <div className="flex items-center text-gray-600">
-              <img src="/images/usa-flag.jpg" alt="American Flag" className="h-5 w-7 mr-2 rounded shadow-sm" />
-              <span>100% American made with premium American steel</span>
-            </div>
-            <div className="flex items-center text-gray-600">
-              <Truck className="h-5 w-5 mr-2 text-charcoal-600" />
-              <span>Free shipping on orders over $500</span>
-            </div>
-            <div className="flex items-center text-gray-600">
-              <Shield className="h-5 w-5 mr-2 text-charcoal-600" />
-              <span>Lifetime warranty against manufacturing defects</span>
-            </div>
-            <div className="flex items-center text-gray-600">
-              <Zap className="h-5 w-5 mr-2 text-charcoal-600" />
-              <span>Body-mounted for maximum strength and protection</span>
-            </div>
-          </div>
-
-          <Button className="w-full bg-charcoal-700 hover:bg-charcoal-600 text-white text-lg py-6 mb-6">
-            ORDER NOW
-          </Button>
-
-          <Tabs defaultValue="features" className="mt-8">
-            <TabsList className="grid grid-cols-4 bg-gray-100">
-              <TabsTrigger value="features">Features</TabsTrigger>
-              <TabsTrigger value="specs">Specifications</TabsTrigger>
-              <TabsTrigger value="installation">Installation</TabsTrigger>
-              <TabsTrigger value="compatibility">Compatibility</TabsTrigger>
-            </TabsList>
-            <TabsContent value="features" className="mt-4">
-              <ul className="list-disc pl-5 space-y-2 text-gray-600">
-                {product.features.map((feature, index) => (
-                  <li key={index}>{feature}</li>
-                ))}
-              </ul>
-            </TabsContent>
-            <TabsContent value="specs" className="mt-4">
-              <div className="space-y-2">
-                {Object.entries(product.specs).map(([key, value]) => (
-                  <div key={key} className="grid grid-cols-2 border-b border-gray-200 py-2">
-                    <span className="text-gray-500">
-                      {key.replace(/([A-Z])/g, " $1").replace(/^./, (str) => str.toUpperCase())}
-                    </span>
-                    <span className="text-gray-600">{value}</span>
+        {/* Related Products */}
+        <div className="mt-24">
+          <h2 className="text-2xl font-bold tracking-tight text-gray-900 text-center">You Might Also Like</h2>
+          <div className="mt-8 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {relatedProducts.map((product) => (
+              <Card key={product.id} className="overflow-hidden group">
+                <Link href={product.href}>
+                  <div className="relative aspect-square w-full overflow-hidden">
+                    <Image src={product.image || "/placeholder.svg"} alt={product.name} layout="fill" objectFit="cover" className="group-hover:scale-105 transition-transform duration-300" />
                   </div>
-                ))}
-              </div>
-            </TabsContent>
-            <TabsContent value="installation" className="mt-4">
-              <p className="text-gray-600 mb-4">{product.installationNotes}</p>
-              <div className="bg-gray-50 p-4 rounded-lg">
-                <h4 className="font-bold text-gray-900 mb-2">Installation Overview:</h4>
-                <ol className="list-decimal pl-5 space-y-1 text-gray-600">
-                  <li>Remove factory running boards (if equipped)</li>
-                  <li>Position rock sliders and mark mounting points</li>
-                  <li>Install mounting brackets using provided hardware</li>
-                  <li>Mount rock sliders to brackets</li>
-                  <li>Torque all hardware to specification</li>
-                  <li>Final inspection and testing</li>
-                </ol>
-              </div>
-            </TabsContent>
-            <TabsContent value="compatibility" className="mt-4">
-              <p className="text-gray-600 mb-4">These rock sliders are compatible with:</p>
-              <ul className="list-disc pl-5 space-y-2 text-gray-600">
-                {product.compatibility.map((item, index) => (
-                  <li key={index}>{item}</li>
-                ))}
-              </ul>
-              <div className="mt-4 p-4 bg-gray-50 rounded-lg">
-                <p className="text-sm text-gray-500">
-                  <strong>Note:</strong> Please verify your specific model year and trim level before ordering. Contact
-                  us if you have any questions about compatibility.
-                </p>
-              </div>
-            </TabsContent>
-          </Tabs>
+                </Link>
+                <CardContent className="p-4">
+                  <h3 className="text-lg font-semibold text-gray-900">{product.name}</h3>
+                  <div className="flex justify-between items-center mt-4">
+                    <p className="text-lg font-bold text-gray-900">{product.price}</p>
+                    <Button asChild>
+                      <Link href={product.href}>View Details</Link>
+                    </Button>
+                  </div>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
         </div>
       </div>
     </div>

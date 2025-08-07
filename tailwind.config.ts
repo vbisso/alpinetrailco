@@ -99,6 +99,10 @@ const config = {
           900: "#18181b",
           950: "#09090b",
         },
+        orange: {
+          500: '#f97316',
+          600: '#ea580c',
+        }
       },
       borderRadius: {
         lg: "var(--radius)",

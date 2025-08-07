@@ -2,7 +2,7 @@ import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
-import { ArrowRight, ChevronRight, Mail, Calendar, Wrench, Shield } from "lucide-react"
+import { ArrowRight, ChevronRight, Mail, Calendar, Wrench, Shield } from 'lucide-react'
 import BajaDesignsShowcase from "@/components/baja-designs-showcase"
 
 export default function SixthGen4RunnerPage() {
@@ -145,7 +145,7 @@ export default function SixthGen4RunnerPage() {
         </section>
 
         {/* Why Wait for Our Products */}
-        <section className="bg-zinc-800 rounded-lg p-8">
+        <section className="bg-zinc-800 rounded-lg p-8 mb-16">
           <h2 className="text-3xl font-bold text-white mb-8 text-center">WHY WAIT FOR ALPINE TRAIL CO.?</h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             <div className="text-center">
@@ -170,6 +170,31 @@ export default function SixthGen4RunnerPage() {
               </p>
             </div>
           </div>
+        </section>
+
+        <section className="mt-16">
+            <h2 className="text-2xl font-bold text-white mb-8 text-center">REP THE BRAND</h2>
+            <div className="flex justify-center">
+                <Card key="alpine-trail-shirt" className="bg-zinc-800 border-zinc-700 overflow-hidden group max-w-sm">
+                    <div className="aspect-video overflow-hidden relative">
+                        <img
+                            src="/images/merch/alpine-trail-shirt-front.png"
+                            alt="Alpine Trail Co. Signature Tee"
+                            className="w-full h-full object-contain p-4 transition-transform duration-500 group-hover:scale-105 bg-white"
+                        />
+                        <div className="absolute top-3 left-3 bg-red-600 text-white text-xs font-bold px-3 py-1 rounded-full">
+                            MERCH
+                        </div>
+                    </div>
+                    <CardContent className="p-4">
+                        <h3 className="font-bold text-white mb-2 line-clamp-2">Alpine Trail Co. Signature Tee</h3>
+                        <p className="text-red-500 font-bold mb-3">$25.00</p>
+                        <Link href="/products/merch/shirt">
+                            <Button className="w-full bg-zinc-700 hover:bg-red-600">VIEW DETAILS</Button>
+                        </Link>
+                    </CardContent>
+                </Card>
+            </div>
         </section>
       </div>
     </div>

@@ -3,7 +3,7 @@
 import { useState, useEffect, useRef } from "react"
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
-import { ChevronRight, ArrowRight, ChevronDown } from "lucide-react"
+import { ChevronRight, ArrowRight, ChevronDown } from 'lucide-react'
 import ProductShowcase from "@/components/product-showcase"
 import { motion } from "framer-motion"
 
@@ -71,7 +71,7 @@ export default function Home() {
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Button
                 size="lg"
-                className="bg-charcoal-700 hover:bg-charcoal-600 text-white px-8 py-6 text-lg rounded-full transition-all duration-300 hover:shadow-lg hover:scale-105"
+                className="bg-orange-500 hover:bg-orange-600 text-white px-8 py-6 text-lg rounded-full transition-all duration-300 hover:shadow-lg hover:scale-105"
               >
                 <Link href="/vehicles/tacoma" className="flex items-center">
                   SHOP TACOMA <ArrowRight className="ml-2 h-5 w-5" />
@@ -79,7 +79,7 @@ export default function Home() {
               </Button>
               <Button
                 size="lg"
-                className="bg-charcoal-700 hover:bg-charcoal-600 text-white px-8 py-6 text-lg rounded-full transition-all duration-300 hover:shadow-lg hover:scale-105"
+                className="bg-orange-500 hover:bg-orange-600 text-white px-8 py-6 text-lg rounded-full transition-all duration-300 hover:shadow-lg hover:scale-105"
               >
                 <Link href="/vehicles/4runner" className="flex items-center">
                   SHOP 4RUNNER <ArrowRight className="ml-2 h-5 w-5" />
@@ -172,7 +172,7 @@ export default function Home() {
                 {
                   gen: "3RD GEN",
                   years: "2016-2023",
-                  image: "/images/tacoma-3rd-gen-trd-stock.webp",
+                  image: "/images/tacoma-3rd-gen-hero.jpeg",
                   link: "/vehicles/tacoma/3rd-gen",
                 },
                 {
@@ -236,7 +236,7 @@ export default function Home() {
                 {
                   gen: "4TH GEN",
                   years: "2003-2009",
-                  image: "/images/4runner-4th-gen-stock.jpg",
+                  image: "/images/4runner-4th-gen-hero-1.jpeg",
                   link: "/vehicles/4runner/4th-gen",
                 },
                 {
@@ -317,7 +317,7 @@ export default function Home() {
               className="rounded-xl overflow-hidden shadow-lg"
             >
               <img
-                src="/images/tacoma-3rd-gen-trd-stock.webp"
+                src="/images/4runner-4th-gen-hero-2.jpeg"
                 alt="Workshop fabrication"
                 className="w-full h-full object-cover"
               />

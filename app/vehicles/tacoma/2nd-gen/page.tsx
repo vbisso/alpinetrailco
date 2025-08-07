@@ -1,7 +1,7 @@
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
-import { ChevronRight, Clock, Mail } from "lucide-react"
+import { ChevronRight, Clock, Mail } from 'lucide-react'
 
 export default function TacomaSecondGenPage() {
   // Coming Soon categories for 2nd Gen Tacoma
@@ -160,7 +160,7 @@ export default function TacomaSecondGenPage() {
       </section>
 
       {/* Coming Soon Product Categories */}
-      <section>
+      <section className="mb-16">
         <h2 className="text-2xl font-bold text-white mb-8">UPCOMING PRODUCT CATEGORIES</h2>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {comingSoonCategories.map((category) => (
@@ -180,6 +180,31 @@ export default function TacomaSecondGenPage() {
               <p className="text-gray-300">{category.description}</p>
             </div>
           ))}
+        </div>
+      </section>
+
+      <section className="mt-16">
+        <h2 className="text-2xl font-bold text-white mb-8 text-center">REP THE BRAND</h2>
+        <div className="flex justify-center">
+            <Card key="alpine-trail-shirt" className="bg-zinc-800 border-zinc-700 overflow-hidden group max-w-sm">
+                <div className="aspect-video overflow-hidden relative">
+                    <img
+                        src="/images/merch/alpine-trail-shirt-front.png"
+                        alt="Alpine Trail Co. Signature Tee"
+                        className="w-full h-full object-contain p-4 transition-transform duration-500 group-hover:scale-105 bg-white"
+                    />
+                    <div className="absolute top-3 left-3 bg-red-600 text-white text-xs font-bold px-3 py-1 rounded-full">
+                        MERCH
+                    </div>
+                </div>
+                <CardContent className="p-4">
+                    <h3 className="font-bold text-white mb-2 line-clamp-2">Alpine Trail Co. Signature Tee</h3>
+                    <p className="text-red-500 font-bold mb-3">$25.00</p>
+                    <Link href="/products/merch/shirt">
+                        <Button className="w-full bg-zinc-700 hover:bg-red-600">VIEW DETAILS</Button>
+                    </Link>
+                </CardContent>
+            </Card>
         </div>
       </section>
     </div>
