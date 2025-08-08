@@ -64,17 +64,13 @@ export default function ProductPage() {
   return (
     <div className="bg-white">
       <div className="container px-4 py-8 mx-auto">
-        {/* Breadcrumbs */}
         <nav className="flex items-center space-x-2 text-sm text-gray-500 mb-8">
           <Link href="/" className="hover:text-gray-700">Home</Link>
-          <ChevronRight className="h-4 w-4" />
-          <Link href="/products" className="hover:text-gray-700">Products</Link>
           <ChevronRight className="h-4 w-4" />
           <span className="text-gray-800 font-medium">{product.name}</span>
         </nav>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
-          {/* Product Images */}
           <motion.div initial={{ opacity: 0, x: -50 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.5 }}>
             <div className="aspect-square rounded-lg overflow-hidden bg-gray-100 mb-4">
               <Image
@@ -106,7 +102,6 @@ export default function ProductPage() {
             </div>
           </motion.div>
 
-          {/* Product Details */}
           <motion.div initial={{ opacity: 0, x: 50 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.5, delay: 0.1 }}>
             <h1 className="text-3xl md:text-4xl font-bold text-gray-900 mb-2">{product.name}</h1>
             <div className="flex items-center mb-4">
@@ -120,7 +115,6 @@ export default function ProductPage() {
             <p className="text-3xl font-bold text-red-600 mb-6">${product.price.toFixed(2)}</p>
             <p className="text-gray-700 leading-relaxed mb-6">{product.description}</p>
 
-            {/* Size Options */}
             <div className="mb-6">
               <Label className="text-lg font-medium text-gray-900 mb-2 block">Size</Label>
               <RadioGroup
@@ -166,7 +160,6 @@ export default function ProductPage() {
         </div>
       </div>
 
-      {/* Quality Guarantee Section */}
       <section className="py-16 bg-gray-50 mt-12">
         <div className="container px-4 mx-auto">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 text-center">

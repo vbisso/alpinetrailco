@@ -1,126 +1,173 @@
-import Image from 'next/image';
-import Link from 'next/link';
-import { ChevronRight } from 'lucide-react';
-import ProductCard from '@/components/ProductCard';
-import BajaDesignsShowcase from '@/components/baja-designs-showcase';
+import Link from "next/link";
+import Image from "next/image";
+import { ChevronRight } from "lucide-react";
+import ProductCard from "@/components/ProductCard";
+import BajaDesignsShowcase from "@/components/baja-designs-showcase";
 
 const availableProducts = [
   {
-    name: 'Expedition Series Front Bumper',
-    description: 'Full-width protection with winch compatibility.',
-    price: '$1,899.99',
-    imageUrl: '/images/4runner-expedition-bumper-front-1.png',
-    link: '/vehicles/4runner/4th-gen/front-bumpers/1',
+    id: "center-console-molle-panel",
+    name: "Center Console MOLLE Panel",
+    price: "$129.99",
+    image: "/images/4runner-molle-panel-installed-1.jpeg",
+    category: "Interior",
+    href: "/vehicles/4runner/4th-gen/interior/2",
+    description: "Modular storage solution for your center console",
   },
   {
-    name: 'High Clearance Front Bumper',
-    description: 'Maximum approach angle and aggressive styling.',
-    price: '$1,699.99',
-    imageUrl: '/images/4runner-high-clearance-bumper-front-view.png',
-    link: '/vehicles/4runner/4th-gen/front-bumpers/4',
+    id: "alpine-trail-cubby",
+    name: "Alpine Trail Cubby",
+    price: "$175.00",
+    image: "/images/alpine-trail/cubby-installed.jpeg",
+    category: "Interior",
+    href: "/products/alpine-trail/cubby",
+    description: "Secure storage cubby for the rear cargo area",
   },
   {
-    name: 'Rock Sliders',
-    description: 'Essential body protection for serious trails.',
-    price: '$949.99',
-    imageUrl: '/images/4runner-rock-sliders-1.jpeg',
-    link: '/vehicles/4runner/4th-gen/rock-sliders/1',
-  },
-  {
-    name: 'Center Console MOLLE Panel',
-    description: 'Organize your gear with easy-access mounting.',
-    price: '$129.99',
-    imageUrl: '/images/4runner-molle-panel-main.png',
-    link: '/vehicles/4runner/4th-gen/interior/1',
-  },
-  {
-    name: 'Rear Cargo MOLLE Panels',
-    description: 'Maximize your cargo area organization.',
-    price: '$249.99',
-    imageUrl: '/images/4runner-rear-cargo-molle.jpeg',
-    link: '/vehicles/4runner/4th-gen/interior/2',
-  },
-  {
-    name: 'Alpine Trail Cubby',
-    description: 'Replaces the ashtray with useful storage.',
-    price: '$149.99',
-    imageUrl: '/images/alpine-trail/cubby.jpeg',
-    link: '/products/alpine-trail/cubby',
-  },
-  {
-    name: 'Alpine Trail Co. Signature Tee',
-    description: 'Rep the brand with our premium quality t-shirt.',
-    price: '$29.99',
-    imageUrl: '/images/merch/alpine-trail-shirt-front.png',
-    link: '/products/merch/shirt',
+    id: "rear-cargo-molle-panel",
+    name: "4th Gen 4Runner Rear Cargo Storage MOLLE Panel",
+    price: "$165.00",
+    image: "/images/4runner-rear-cargo-molle.jpeg",
+    category: "Interior",
+    href: "/vehicles/4runner/4th-gen/interior/4",
+    description: "Modular storage for your rear cargo area",
   },
 ];
 
 const comingSoonProducts = [
   {
-    name: 'Full Roof Rack',
-    description: 'Low-profile and modular for all your gear.',
-    imageUrl: '/images/coming-soon-placeholder.jpeg',
+    id: "1",
+    name: "Expedition Front Bumper",
+    price: "Coming Soon",
+    image: "/images/coming-soon-placeholder.jpeg",
+    category: "Front Bumpers",
+    href: "#",
+    description: "Heavy-duty front bumper for maximum protection.",
   },
   {
-    name: 'Rear Bumper System',
-    description: 'Complete your armor with optional swing-outs.',
-    imageUrl: '/images/coming-soon-placeholder.jpeg',
+    id: "4",
+    name: "High Clearance Front Bumper",
+    price: "Coming Soon",
+    image: "/images/coming-soon-placeholder.jpeg",
+    category: "Front Bumpers",
+    href: "#",
+    description:
+      "Designed for improved approach angles and off-road clearance.",
   },
   {
-    name: 'Skid Plate Package',
-    description: 'Full underbody protection from front to back.',
-    imageUrl: '/images/coming-soon-placeholder.jpeg',
+    id: "1",
+    name: "Rock Sliders",
+    price: "Coming Soon",
+    image: "/images/coming-soon-placeholder.jpeg",
+    category: "Rock Sliders",
+    href: "#",
+    description: "Protect your vehicle's body from trail damage.",
+  },
+  {
+    id: "2",
+    name: "Rear Bumper",
+    price: "Coming Soon",
+    image: "/images/coming-soon-placeholder.jpeg",
+    category: "Rear Bumpers",
+    href: "#",
+    description: "Full rear protection with optional swing-out carriers.",
+  },
+  {
+    id: "3",
+    name: "Roof Rack",
+    price: "Coming Soon",
+    image: "/images/coming-soon-placeholder.jpeg",
+    category: "Roof Racks",
+    href: "#",
+    description: "Low-profile and modular roof rack for all your gear.",
+  },
+  {
+    id: "4",
+    name: "Skid Plates",
+    price: "Coming Soon",
+    image: "/images/coming-soon-placeholder.jpeg",
+    category: "Armor",
+    href: "#",
+    description: "Complete underbody protection for vital components.",
   },
 ];
 
 export default function FourthGen4RunnerPage() {
   return (
-    <div className="bg-gray-50">
-      <div className="relative h-[400px] w-full">
+    <div className="bg-white">
+      <div className="relative h-[40vh] min-h-[300px] bg-gray-800">
         <Image
           src="/images/4runner-4th-gen-hero-1.jpeg"
-          alt="4th Gen 4Runner on a trail"
+          alt="4th Gen Toyota 4Runner"
           layout="fill"
           objectFit="cover"
-          className="brightness-75"
+          className="opacity-50"
         />
-        <div className="absolute inset-0 flex flex-col items-center justify-center text-white text-center p-4">
-          <h1 className="text-4xl md:text-6xl font-extrabold tracking-tight">4th Gen 4Runner</h1>
-          <p className="mt-2 text-lg md:text-xl max-w-2xl">
-            (2003-2009) - The perfect blend of modern capability and classic reliability. Build yours to conquer any terrain.
+        <div className="absolute inset-0 flex flex-col items-center justify-center text-center text-white p-4">
+          <h1 className="text-4xl md:text-6xl font-extrabold tracking-tight">
+            4th Gen 4Runner (2003-2009)
+          </h1>
+          <p className="mt-4 text-lg md:text-xl max-w-2xl">
+            Unlock the full potential of your 4th Gen 4Runner with our premium
+            off-road fabrication parts.
           </p>
         </div>
       </div>
 
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        <div className="flex items-center space-x-2 text-sm text-gray-500 mb-12">
-          <Link href="/" className="hover:text-gray-700">Home</Link>
-          <ChevronRight size={16} />
-          <Link href="/vehicles/4runner" className="hover:text-gray-700">4Runner</Link>
-          <ChevronRight size={16} />
-          <span className="font-medium text-gray-800">4th Gen (2003-2009)</span>
-        </div>
+      <div className="container mx-auto px-4 py-12">
+        <nav className="flex items-center space-x-2 text-sm text-gray-500 mb-8">
+          <Link href="/" className="hover:text-gray-700">
+            Home
+          </Link>
+          <ChevronRight className="h-4 w-4" />
+          <Link href="/vehicles/4runner" className="hover:text-gray-700">
+            4Runner
+          </Link>
+          <ChevronRight className="h-4 w-4" />
+          <span className="text-gray-800 font-medium">4th Gen</span>
+        </nav>
 
         <section id="available-now" className="mb-16">
-          <h2 className="text-3xl font-bold text-gray-900 mb-8 text-center">Available Now</h2>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
+          <h2 className="text-3xl font-bold text-center text-gray-900 mb-8">
+            Available Now
+          </h2>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
             {availableProducts.map((product) => (
-              <ProductCard key={product.name} {...product} />
+              <ProductCard key={product.id} {...product} />
             ))}
           </div>
         </section>
 
-        <section id="coming-soon" className="mb-16">
-          <h2 className="text-3xl font-bold text-gray-900 mb-8 text-center">Coming Soon</h2>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
-            {comingSoonProducts.map((product) => (
-              <ProductCard key={product.name} {...product} isComingSoon />
+        <section id="baja-designs" className="mb-16">
+          <div className="text-center mb-8">
+            <h2 className="text-3xl font-bold text-gray-900">
+              Baja Designs Lighting
+            </h2>
+            <p className="text-gray-600 mt-2">
+              Illuminate your path with the best in off-road lighting.
+            </p>
+          </div>
+          <BajaDesignsShowcase />
+        </section>
+
+        <section id="coming-soon">
+          <h2 className="text-3xl font-bold text-center text-gray-900 mb-8">
+            Coming Soon
+          </h2>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+            {comingSoonProducts.map((p) => (
+              // <ProductCard key={product.id} product={product} comingSoon />
+              <ProductCard
+                key={p.name}
+                id={p.name}
+                name={p.name}
+                image={p.image}
+                description={p.description}
+                comingSoon
+              />
             ))}
           </div>
         </section>
-
-        <BajaDesignsShowcase />
       </div>
     </div>
   );
