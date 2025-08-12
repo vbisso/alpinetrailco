@@ -1,4 +1,7 @@
 {
-  "/api/contact/route": "app/api/contact/route.js",
-  "/contact/page": "app/contact/page.js"
+  "/vehicles/4runner/4th-gen/page": "app/vehicles/4runner/4th-gen/page.js",
+  "/vehicles/4runner/4th-gen/interior/4/page": "app/vehicles/4runner/4th-gen/interior/4/page.js",
+  "/vehicles/4runner/4th-gen/interior/page": "app/vehicles/4runner/4th-gen/interior/page.js",
+  "/vehicles/4runner/4th-gen/rock-sliders/page": "app/vehicles/4runner/4th-gen/rock-sliders/page.js",
+  "/vehicles/4runner/4th-gen/interior/2/page": "app/vehicles/4runner/4th-gen/interior/2/page.js"
 }

@@ -33,61 +33,48 @@ const availableProducts = [
     description: "Modular storage for your rear cargo area",
   },
 ];
-
 const comingSoonProducts = [
   {
-    id: "1",
+    id: "expedition-front-bumper",
     name: "Expedition Front Bumper",
-    price: "Coming Soon",
     image: "/images/coming-soon-placeholder.jpeg",
     category: "Front Bumpers",
-    href: "#",
     description: "Heavy-duty front bumper for maximum protection.",
   },
   {
-    id: "4",
+    id: "high-clearance-front-bumper",
     name: "High Clearance Front Bumper",
-    price: "Coming Soon",
     image: "/images/coming-soon-placeholder.jpeg",
     category: "Front Bumpers",
-    href: "#",
     description:
       "Designed for improved approach angles and off-road clearance.",
   },
   {
-    id: "1",
+    id: "rock-sliders",
     name: "Rock Sliders",
-    price: "Coming Soon",
     image: "/images/coming-soon-placeholder.jpeg",
     category: "Rock Sliders",
-    href: "#",
     description: "Protect your vehicle's body from trail damage.",
   },
   {
-    id: "2",
+    id: "rear-bumper",
     name: "Rear Bumper",
-    price: "Coming Soon",
     image: "/images/coming-soon-placeholder.jpeg",
     category: "Rear Bumpers",
-    href: "#",
     description: "Full rear protection with optional swing-out carriers.",
   },
   {
-    id: "3",
+    id: "roof-rack",
     name: "Roof Rack",
-    price: "Coming Soon",
     image: "/images/coming-soon-placeholder.jpeg",
     category: "Roof Racks",
-    href: "#",
     description: "Low-profile and modular roof rack for all your gear.",
   },
   {
-    id: "4",
+    id: "skid-plates",
     name: "Skid Plates",
-    price: "Coming Soon",
     image: "/images/coming-soon-placeholder.jpeg",
     category: "Armor",
-    href: "#",
     description: "Complete underbody protection for vital components.",
   },
 ];
@@ -158,8 +145,8 @@ export default function FourthGen4RunnerPage() {
             {comingSoonProducts.map((p) => (
               // <ProductCard key={product.id} product={product} comingSoon />
               <ProductCard
-                key={p.name}
-                id={p.name}
+                key={p.id}
+                id={p.id}
                 name={p.name}
                 image={p.image}
                 description={p.description}
