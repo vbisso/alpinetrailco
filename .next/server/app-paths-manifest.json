@@ -1,7 +1,12 @@
 {
+  "/_not-found/page": "app/_not-found/page.js",
   "/vehicles/4runner/4th-gen/page": "app/vehicles/4runner/4th-gen/page.js",
-  "/vehicles/4runner/4th-gen/interior/4/page": "app/vehicles/4runner/4th-gen/interior/4/page.js",
-  "/vehicles/4runner/4th-gen/interior/page": "app/vehicles/4runner/4th-gen/interior/page.js",
-  "/vehicles/4runner/4th-gen/rock-sliders/page": "app/vehicles/4runner/4th-gen/rock-sliders/page.js",
-  "/vehicles/4runner/4th-gen/interior/2/page": "app/vehicles/4runner/4th-gen/interior/2/page.js"
+  "/products/alpine-trail/cubby/page": "app/products/alpine-trail/cubby/page.js",
+  "/checkout/page": "app/checkout/page.js",
+  "/vehicles/4runner/page": "app/vehicles/4runner/page.js",
+  "/vehicles/4runner/4th-gen/interior/2/page": "app/vehicles/4runner/4th-gen/interior/2/page.js",
+  "/page": "app/page.js",
+  "/cart/page": "app/cart/page.js",
+  "/api/payments/route": "app/api/payments/route.js",
+  "/checkout/success/page": "app/checkout/success/page.js"
 }

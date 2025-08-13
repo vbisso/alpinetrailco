@@ -1,13 +1,20 @@
-"use client"
+"use client";
 
-import { useState } from "react"
-import Image from "next/image"
-import Link from "next/link"
-import { Button } from "@/components/ui/button"
-import { useCart } from "@/contexts/cart-context"
-import { useToast } from "@/components/ui/use-toast"
-import { CheckCircle, ChevronRight, Star, Truck, Shield, Award } from 'lucide-react'
-import { motion } from "framer-motion"
+import { useState } from "react";
+import Image from "next/image";
+import Link from "next/link";
+import { Button } from "@/components/ui/button";
+import { useCart } from "@/contexts/cart-context";
+import { useToast } from "@/components/ui/use-toast";
+import {
+  CheckCircle,
+  ChevronRight,
+  Star,
+  Truck,
+  Shield,
+  Award,
+} from "lucide-react";
+import { motion } from "framer-motion";
 
 const product = {
   id: "alpine-trail-cubby",
@@ -16,8 +23,16 @@ const product = {
   description:
     "Maximize your 4th Gen 4Runner's interior storage with the Alpine Trail Cubby. This innovative storage solution replaces the often-unused ashtray to provide a secure and convenient spot for your phone, wallet, or other small essentials. Made from durable, high-quality materials, it's designed for a perfect fit and easy installation.",
   images: [
-    { id: "1", src: "/images/alpine-trail/cubby-installed.jpeg", alt: "Alpine Trail Cubby installed in a 4th Gen 4Runner" },
-    { id: "2", src: "/images/alpine-trail/cubby.jpeg", alt: "Alpine Trail Cubby product view" },
+    {
+      id: "1",
+      src: "/images/alpine-trail/cubby-installed.jpeg",
+      alt: "Alpine Trail Cubby installed in a 4th Gen 4Runner",
+    },
+    {
+      id: "2",
+      src: "/images/alpine-trail/cubby.jpeg",
+      alt: "Alpine Trail Cubby product view",
+    },
   ],
   rating: 5,
   reviews: 8,
@@ -31,12 +46,12 @@ const product = {
   ],
   category: "Interior",
   vehicle: "4runner-4th-gen",
-}
+};
 
 export default function ProductPage() {
-  const [selectedImage, setSelectedImage] = useState(product.images[0])
-  const { addItem } = useCart()
-  const { toast } = useToast()
+  const [selectedImage, setSelectedImage] = useState(product.images[0]);
+  const { addItem } = useCart();
+  const { toast } = useToast();
 
   const handleAddToCart = () => {
     const itemToAdd = {
@@ -46,8 +61,8 @@ export default function ProductPage() {
       image: product.images[0].src,
       category: product.category,
       quantity: 1,
-    }
-    addItem(itemToAdd)
+    };
+    addItem(itemToAdd);
     toast({
       title: "Added to cart",
       description: `${itemToAdd.name} has been added to your cart.`,
@@ -56,24 +71,37 @@ export default function ProductPage() {
           <Button variant="outline">View Cart</Button>
         </Link>
       ),
-    })
-  }
+    });
+  };
 
   return (
     <div className="bg-white">
       <div className="container px-4 py-8 mx-auto">
         <nav className="flex items-center space-x-2 text-sm text-gray-500 mb-8">
-          <Link href="/" className="hover:text-gray-700">Home</Link>
+          <Link href="/" className="hover:text-gray-700">
+            Home
+          </Link>
           <ChevronRight className="h-4 w-4" />
-          <Link href="/vehicles/4runner" className="hover:text-gray-700">4Runner</Link>
+          <Link href="/vehicles/4runner" className="hover:text-gray-700">
+            4Runner
+          </Link>
           <ChevronRight className="h-4 w-4" />
-          <Link href="/vehicles/4runner/4th-gen" className="hover:text-gray-700">4th Gen</Link>
+          <Link
+            href="/vehicles/4runner/4th-gen"
+            className="hover:text-gray-700"
+          >
+            4th Gen
+          </Link>
           <ChevronRight className="h-4 w-4" />
           <span className="text-gray-800 font-medium">{product.name}</span>
         </nav>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
-          <motion.div initial={{ opacity: 0, x: -50 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.5 }}>
+          <motion.div
+            initial={{ opacity: 0, x: -50 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.5 }}
+          >
             <div className="aspect-square rounded-lg overflow-hidden bg-gray-100 mb-4">
               <Image
                 src={selectedImage.src || "/placeholder.svg"}
@@ -89,7 +117,9 @@ export default function ProductPage() {
                   key={image.id}
                   onClick={() => setSelectedImage(image)}
                   className={`aspect-square rounded-md overflow-hidden border-2 ${
-                    selectedImage.id === image.id ? "border-red-600" : "border-transparent"
+                    selectedImage.id === image.id
+                      ? "border-red-600"
+                      : "border-transparent"
                   }`}
                 >
                   <Image
@@ -104,20 +134,39 @@ export default function ProductPage() {
             </div>
           </motion.div>
 
-          <motion.div initial={{ opacity: 0, x: 50 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.5, delay: 0.1 }}>
-            <h1 className="text-3xl md:text-4xl font-bold text-gray-900 mb-2">{product.name}</h1>
+          <motion.div
+            initial={{ opacity: 0, x: 50 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.5, delay: 0.1 }}
+          >
+            <h1 className="text-3xl md:text-4xl font-bold text-gray-900 mb-2">
+              {product.name}
+            </h1>
             <div className="flex items-center mb-4">
               <div className="flex items-center">
                 {[...Array(5)].map((_, i) => (
-                  <Star key={i} className="h-5 w-5 text-yellow-400 fill-current" />
+                  <Star
+                    key={i}
+                    className="h-5 w-5 text-yellow-400 fill-current"
+                  />
                 ))}
               </div>
-              <span className="ml-2 text-sm text-gray-600">({product.reviews} reviews)</span>
+              <span className="ml-2 text-sm text-gray-600">
+                ({product.reviews} reviews)
+              </span>
             </div>
-            <p className="text-3xl font-bold text-red-600 mb-6">${product.price.toFixed(2)}</p>
-            <p className="text-gray-700 leading-relaxed mb-6">{product.description}</p>
+            <p className="text-3xl font-bold text-red-600 mb-6">
+              ${product.price.toFixed(2)}
+            </p>
+            <p className="text-gray-700 leading-relaxed mb-6">
+              {product.description}
+            </p>
 
-            <Button onClick={handleAddToCart} size="lg" className="w-full text-lg">
+            <Button
+              onClick={handleAddToCart}
+              size="lg"
+              className="w-full text-lg"
+            >
               Add to Cart
             </Button>
 
@@ -148,7 +197,8 @@ export default function ProductPage() {
               {
                 icon: <Truck className="h-10 w-10 text-red-600" />,
                 title: "Fast Shipping",
-                description: "Quick and reliable shipping to get your gear to you.",
+                description:
+                  "Quick and reliable shipping to get your gear to you.",
               },
               {
                 icon: <Award className="h-10 w-10 text-red-600" />,
@@ -166,5 +216,5 @@ export default function ProductPage() {
         </div>
       </section>
     </div>
-  )
+  );
 }

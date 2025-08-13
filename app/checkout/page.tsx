@@ -1,22 +1,40 @@
-"use client"
+"use client";
 
-import type React from "react"
+import React, { useEffect, useRef, useState } from "react";
+import Link from "next/link";
+import { useRouter } from "next/navigation";
+import { ArrowLeft, CreditCard, Lock } from "lucide-react";
 
-import { useState } from "react"
-import { useRouter } from "next/navigation"
-import { Button } from "@/components/ui/button"
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import { Input } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
-import { Checkbox } from "@/components/ui/checkbox"
-import { useCart } from "@/contexts/cart-context"
-import { CreditCard, Lock, ArrowLeft } from "lucide-react"
-import Link from "next/link"
+import { useCart } from "@/contexts/cart-context";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Checkbox } from "@/components/ui/checkbox";
+
+declare global {
+  interface Window {
+    Square?: any;
+  }
+}
 
 export default function CheckoutPage() {
-  const { state, clearCart } = useCart()
-  const router = useRouter()
-  const [isProcessing, setIsProcessing] = useState(false)
+  const router = useRouter();
+  const { state, clearCart } = useCart();
+
+  // ----- Square state -----
+  const [card, setCard] = useState<any>(null);
+  const [cardReady, setCardReady] = useState(false);
+  const cardContainerRef = useRef<HTMLDivElement>(null);
+  const mountedOnceRef = useRef(false); // React 18 StrictMode guard
+
+  // public envs
+  const appId = process.env.NEXT_PUBLIC_SQUARE_APP_ID!;
+  const locationId = process.env.NEXT_PUBLIC_SQUARE_LOCATION_ID!;
+
+  // ----- Checkout form state -----
+  const [isProcessing, setIsProcessing] = useState(false);
+  const [agreeToTerms, setAgreeToTerms] = useState(false);
   const [formData, setFormData] = useState({
     email: "",
     firstName: "",
@@ -25,59 +43,168 @@ export default function CheckoutPage() {
     city: "",
     state: "",
     zipCode: "",
-    cardNumber: "",
-    expiryDate: "",
-    cvv: "",
-    nameOnCard: "",
-    agreeToTerms: false,
-  })
+  });
 
-  const subtotal = state.total
-  const shipping = subtotal > 500 ? 0 : 50
-  const tax = subtotal * 0.08
-  const total = subtotal + shipping + tax
+  // ----- Totals -----
+  const subtotal = state.total;
+  const shipping = subtotal > 500 ? 0 : 50;
+  const tax = subtotal * 0.08;
+  const total = subtotal + shipping + tax;
 
+  // ===== Square: load SDK + mount card once =====
+  useEffect(() => {
+    if (mountedOnceRef.current) return;
+    mountedOnceRef.current = true;
+
+    let localCard: any;
+
+    const load = async () => {
+      // Load sandbox SDK script if not present
+      if (!window.Square && !document.getElementById("square-web-sdk")) {
+        await new Promise<void>((resolve, reject) => {
+          const s = document.createElement("script");
+          s.id = "square-web-sdk";
+          // Use sandbox while testing. Switch to https://web.squarecdn.com/v1/square.js for production.
+          s.src = "https://sandbox.web.squarecdn.com/v1/square.js";
+          s.onload = () => resolve();
+          s.onerror = () => reject(new Error("Failed to load Square SDK"));
+          document.body.appendChild(s);
+        });
+      }
+
+      if (!window.Square || !appId || !locationId) {
+        console.error("Square SDK or envs missing");
+        return;
+      }
+
+      const payments = await window.Square.payments(appId, locationId);
+
+      // If hot-reload already mounted into the container, don't mount again
+      if (cardContainerRef.current?.childElementCount) {
+        setCardReady(true);
+        return;
+      }
+
+      localCard = await payments.card();
+      await localCard.attach(cardContainerRef.current!);
+
+      setCard(localCard);
+      setCardReady(true);
+    };
+
+    load().catch((e) => {
+      console.error("Square init failed", e);
+      setCardReady(false);
+    });
+
+    // Clean up on actual unmount
+    return () => {
+      try {
+        localCard?.destroy?.();
+      } catch {
+        // no-op
+      }
+    };
+  }, [appId, locationId]);
+
+  // ----- Handlers -----
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value, type, checked } = e.target
+    const { name, value, type, checked } = e.target;
     setFormData((prev) => ({
       ...prev,
       [name]: type === "checkbox" ? checked : value,
-    }))
-  }
+    }));
+  };
 
   const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault()
-    setIsProcessing(true)
+    e.preventDefault();
+    if (!cardReady || !card) return;
+    setIsProcessing(true);
 
-    // Simulate payment processing
-    await new Promise((resolve) => setTimeout(resolve, 3000))
+    try {
+      // Tokenize via Web Payments SDK
+      const tokenResult = await card.tokenize();
+      if (tokenResult.status !== "OK") {
+        throw new Error(
+          tokenResult.errors?.[0]?.message ?? "Card tokenize failed"
+        );
+      }
+      const sourceId = tokenResult.token;
 
-    // Clear cart and redirect to success page
-    clearCart()
-    router.push("/checkout/success")
-  }
+      // Build cart items in cents for the API
+      const items = state.items.map((i) => ({
+        name: i.name,
+        quantity: i.quantity,
+        unitAmount: Math.round(i.price * 100), // dollars -> cents
+      }));
 
+      const res = await fetch("/api/payments", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          sourceId,
+          items,
+          shippingCents: Math.round((subtotal > 500 ? 0 : 50) * 100),
+          taxCents: Math.round(tax * 100),
+          email: formData.email,
+          shippingAddress: {
+            addressLine1: formData.address,
+            locality: formData.city,
+            administrativeDistrictLevel1: formData.state,
+            postalCode: formData.zipCode,
+            country: "US",
+          },
+          idempotencyKey: crypto.randomUUID(),
+        }),
+      });
+
+      const data = await res.json();
+      if (!res.ok || !data.ok) {
+        throw new Error(data.error || "Payment failed");
+      }
+
+      clearCart();
+      router.push("/checkout/success");
+    } catch (err) {
+      console.error(err);
+      // TODO: show toast / inline error if you like
+    } finally {
+      setIsProcessing(false);
+    }
+  };
+
+  // Empty cart state
   if (state.items.length === 0) {
     return (
       <div className="min-h-screen bg-gray-50 py-12">
         <div className="container mx-auto px-4">
           <div className="max-w-2xl mx-auto text-center">
-            <h1 className="text-3xl font-bold text-gray-900 mb-4">Your Cart is Empty</h1>
-            <p className="text-gray-600 mb-8">Add some items to your cart before checking out.</p>
+            <h1 className="text-3xl font-bold text-gray-900 mb-4">
+              Your Cart is Empty
+            </h1>
+            <p className="text-gray-600 mb-8">
+              Add some items to your cart before checking out.
+            </p>
             <Link href="/">
-              <Button className="bg-red-600 hover:bg-red-700 text-white">Continue Shopping</Button>
+              <Button className="bg-red-600 hover:bg-red-700 text-white">
+                Continue Shopping
+              </Button>
             </Link>
           </div>
         </div>
       </div>
-    )
+    );
   }
 
+  // ----- Page -----
   return (
     <div className="min-h-screen bg-gray-50 py-12">
       <div className="container mx-auto px-4">
         <div className="flex items-center mb-8">
-          <Link href="/cart" className="flex items-center text-gray-600 hover:text-red-600 mr-4">
+          <Link
+            href="/cart"
+            className="flex items-center text-gray-600 hover:text-red-600 mr-4"
+          >
             <ArrowLeft className="h-5 w-5 mr-2" />
             Back to Cart
           </Link>
@@ -97,7 +224,9 @@ export default function CheckoutPage() {
                 <form onSubmit={handleSubmit} className="space-y-6">
                   {/* Contact Information */}
                   <div>
-                    <h3 className="text-lg font-semibold mb-4">Contact Information</h3>
+                    <h3 className="text-lg font-semibold mb-4">
+                      Contact Information
+                    </h3>
                     <div className="space-y-4">
                       <div>
                         <Label htmlFor="email">Email Address</Label>
@@ -138,7 +267,9 @@ export default function CheckoutPage() {
 
                   {/* Shipping Address */}
                   <div>
-                    <h3 className="text-lg font-semibold mb-4">Shipping Address</h3>
+                    <h3 className="text-lg font-semibold mb-4">
+                      Shipping Address
+                    </h3>
                     <div className="space-y-4">
                       <div>
                         <Label htmlFor="address">Street Address</Label>
@@ -153,11 +284,23 @@ export default function CheckoutPage() {
                       <div className="grid grid-cols-2 gap-4">
                         <div>
                           <Label htmlFor="city">City</Label>
-                          <Input id="city" name="city" required value={formData.city} onChange={handleInputChange} />
+                          <Input
+                            id="city"
+                            name="city"
+                            required
+                            value={formData.city}
+                            onChange={handleInputChange}
+                          />
                         </div>
                         <div>
                           <Label htmlFor="state">State</Label>
-                          <Input id="state" name="state" required value={formData.state} onChange={handleInputChange} />
+                          <Input
+                            id="state"
+                            name="state"
+                            required
+                            value={formData.state}
+                            onChange={handleInputChange}
+                          />
                         </div>
                       </div>
                       <div>
@@ -173,78 +316,49 @@ export default function CheckoutPage() {
                     </div>
                   </div>
 
-                  {/* Payment Information */}
+                  {/* Payment Information (Square) */}
                   <div>
                     <h3 className="text-lg font-semibold mb-4 flex items-center">
                       <CreditCard className="h-5 w-5 mr-2" />
                       Payment Information
                     </h3>
                     <div className="space-y-4">
-                      <div>
-                        <Label htmlFor="nameOnCard">Name on Card</Label>
-                        <Input
-                          id="nameOnCard"
-                          name="nameOnCard"
-                          required
-                          value={formData.nameOnCard}
-                          onChange={handleInputChange}
-                        />
-                      </div>
-                      <div>
-                        <Label htmlFor="cardNumber">Card Number</Label>
-                        <Input
-                          id="cardNumber"
-                          name="cardNumber"
-                          required
-                          value={formData.cardNumber}
-                          onChange={handleInputChange}
-                          placeholder="1234 5678 9012 3456"
-                        />
-                      </div>
-                      <div className="grid grid-cols-2 gap-4">
-                        <div>
-                          <Label htmlFor="expiryDate">Expiry Date</Label>
-                          <Input
-                            id="expiryDate"
-                            name="expiryDate"
-                            required
-                            value={formData.expiryDate}
-                            onChange={handleInputChange}
-                            placeholder="MM/YY"
-                          />
-                        </div>
-                        <div>
-                          <Label htmlFor="cvv">CVV</Label>
-                          <Input
-                            id="cvv"
-                            name="cvv"
-                            required
-                            value={formData.cvv}
-                            onChange={handleInputChange}
-                            placeholder="123"
-                          />
-                        </div>
-                      </div>
+                      {/* Square Card element mounts here */}
+                      <div
+                        ref={cardContainerRef}
+                        id="card-container"
+                        className="border rounded p-3"
+                      />
+                      {!cardReady && (
+                        <p className="text-sm text-gray-500">
+                          Loading secure payment fields…
+                        </p>
+                      )}
                     </div>
                   </div>
 
-                  {/* Terms and Conditions */}
+                  {/* Terms */}
                   <div className="flex items-center space-x-2">
                     <Checkbox
                       id="agreeToTerms"
-                      name="agreeToTerms"
-                      checked={formData.agreeToTerms}
+                      checked={agreeToTerms}
                       onCheckedChange={(checked) =>
-                        setFormData((prev) => ({ ...prev, agreeToTerms: checked as boolean }))
+                        setAgreeToTerms(Boolean(checked))
                       }
                     />
                     <Label htmlFor="agreeToTerms" className="text-sm">
                       I agree to the{" "}
-                      <Link href="/terms" className="text-red-600 hover:underline">
+                      <Link
+                        href="/terms"
+                        className="text-red-600 hover:underline"
+                      >
                         Terms and Conditions
                       </Link>{" "}
                       and{" "}
-                      <Link href="/privacy" className="text-red-600 hover:underline">
+                      <Link
+                        href="/privacy"
+                        className="text-red-600 hover:underline"
+                      >
                         Privacy Policy
                       </Link>
                     </Label>
@@ -252,12 +366,12 @@ export default function CheckoutPage() {
 
                   <Button
                     type="submit"
-                    disabled={!formData.agreeToTerms || isProcessing}
+                    disabled={!agreeToTerms || isProcessing || !cardReady}
                     className="w-full bg-red-600 hover:bg-red-700 text-white py-3"
                   >
                     {isProcessing ? (
                       <>
-                        <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white mr-2"></div>
+                        <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white mr-2" />
                         Processing Payment...
                       </>
                     ) : (
@@ -276,27 +390,34 @@ export default function CheckoutPage() {
                 <CardTitle>Order Summary</CardTitle>
               </CardHeader>
               <CardContent className="space-y-4">
-                {/* Order Items */}
                 <div className="space-y-3">
                   {state.items.map((item) => (
                     <div key={item.id} className="flex items-center space-x-3">
                       <img
-                        src={item.image || "/placeholder.svg?height=60&width=60&text=Product"}
+                        src={
+                          item.image ||
+                          "/placeholder.svg?height=60&width=60&text=Product"
+                        }
                         alt={item.name}
                         className="h-12 w-12 object-cover rounded"
                       />
                       <div className="flex-1 min-w-0">
-                        <p className="text-sm font-medium text-gray-900 truncate">{item.name}</p>
-                        <p className="text-sm text-gray-500">Qty: {item.quantity}</p>
+                        <p className="text-sm font-medium text-gray-900 truncate">
+                          {item.name}
+                        </p>
+                        <p className="text-sm text-gray-500">
+                          Qty: {item.quantity}
+                        </p>
                       </div>
-                      <p className="text-sm font-medium">${(item.price * item.quantity).toFixed(2)}</p>
+                      <p className="text-sm font-medium">
+                        ${(item.price * item.quantity).toFixed(2)}
+                      </p>
                     </div>
                   ))}
                 </div>
 
                 <hr />
 
-                {/* Pricing Breakdown */}
                 <div className="space-y-2">
                   <div className="flex justify-between">
                     <span>Subtotal</span>
@@ -306,7 +427,9 @@ export default function CheckoutPage() {
                     <span>Shipping</span>
                     <span>
                       {shipping === 0 ? (
-                        <span className="text-green-600 font-semibold">FREE</span>
+                        <span className="text-green-600 font-semibold">
+                          FREE
+                        </span>
                       ) : (
                         `$${shipping.toFixed(2)}`
                       )}
@@ -323,7 +446,6 @@ export default function CheckoutPage() {
                   </div>
                 </div>
 
-                {/* Security Notice */}
                 <div className="bg-gray-50 p-3 rounded-lg">
                   <div className="flex items-center text-sm text-gray-600">
                     <Lock className="h-4 w-4 mr-2" />
@@ -336,5 +458,5 @@ export default function CheckoutPage() {
         </div>
       </div>
     </div>
-  )
+  );
 }

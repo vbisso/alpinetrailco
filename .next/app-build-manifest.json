@@ -11,6 +11,11 @@
       "static/css/app/layout.css",
       "static/chunks/app/layout.js"
     ],
+    "/vehicles/4runner/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/vehicles/4runner/page.js"
+    ],
     "/vehicles/4runner/4th-gen/page": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
@@ -25,6 +30,11 @@
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
       "static/chunks/app/products/loading.js"
+    ],
+    "/cart/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/cart/page.js"
     ],
     "/vehicles/4runner/4th-gen/interior/2/page": [
       "static/chunks/webpack.js",
@@ -41,10 +51,30 @@
       "static/chunks/main-app.js",
       "static/chunks/app/vehicles/4runner/4th-gen/interior/page.js"
     ],
-    "/vehicles/4runner/4th-gen/rock-sliders/page": [
+    "/products/page": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
-      "static/chunks/app/vehicles/4runner/4th-gen/rock-sliders/page.js"
+      "static/chunks/app/products/page.js"
+    ],
+    "/vehicles/4runner/4th-gen/interior/1/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/vehicles/4runner/4th-gen/interior/1/page.js"
+    ],
+    "/checkout/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/checkout/page.js"
+    ],
+    "/checkout/success/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/checkout/success/page.js"
+    ],
+    "/_not-found/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/_not-found/page.js"
     ]
   }
 }
