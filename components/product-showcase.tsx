@@ -1,73 +1,59 @@
+"use client";
+
 import Link from "next/link";
 import Image from "next/image";
-import { Button } from "@/components/ui/button";
-import { ArrowRight } from "lucide-react";
+import { products } from "@/data/products";
 
-const featuredProducts = [
-  {
-    id: 1,
-    name: "Center Console MOLLE Panel",
-    description: "Modular storage solution for your center console",
-    price: "$129.99",
-    image: "/images/4runner-molle-panel-installed-1.jpeg",
-    href: "/vehicles/4runner/4th-gen/interior/2",
-  },
-  {
-    id: 2,
-    name: "Alpine Trail Cubby",
-    description: "Secure storage cubby for the rear cargo area",
-    price: "$175.00",
-    image: "/images/alpine-trail/cubby-installed.jpeg",
-    href: "/products/alpine-trail/cubby",
-  },
-  {
-    id: 3,
-    name: "4th Gen 4Runner Rear Cargo Storage MOLLE Panel",
-    description: "Modular storage for your rear cargo area",
-    price: "$165.00",
-    image: "/images/4runner-rear-cargo-molle.jpeg",
-    href: "/vehicles/4runner/4th-gen/interior/4",
-  },
-  {
-    id: 4,
-    name: "1st Gen Tundra Interior Modular Panel",
-    description: "Custom MOLLE panel for 1st generation Tundra center console",
-    price: "$145.00",
-    image: "/images/tundra/1st-gen-interior-panel-main.jpeg",
-    href: "/vehicles/tundra/1st-gen/interior/1",
-  },
-];
+// Utility to get featured products directly from dictionary
+function getFeaturedProducts() {
+  return [
+    products["4runner"]["4th-gen"]["interior"]["center-console-molle-panel"],
+    products["4runner"]["4th-gen"]["interior"]["alpine-trail-cubby"],
+    products["4runner"]["4th-gen"]["interior"][
+      "rear-cargo-storage-molle-panel"
+    ],
+    products["tundra"]["1st-gen"]["interior"]["tundra-1st-gen-molle-panel"],
+  ];
+}
 
 export default function ProductShowcase() {
+  const featuredProducts = getFeaturedProducts();
+
   return (
     <div className="mt-6 grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-3 xl:gap-x-8">
-      {featuredProducts.map((product) => (
-        <div key={product.id} className="group relative">
-          <div className="aspect-h-1 aspect-w-1 w-full overflow-hidden rounded-md bg-gray-200 lg:aspect-none group-hover:opacity-75 lg:h-80">
-            <Image
-              src={product.image || "/placeholder.svg"}
-              alt={product.name}
-              width={400}
-              height={400}
-              className="h-full w-full object-cover object-center lg:h-full lg:w-full"
-            />
-          </div>
-          <div className="mt-4 flex justify-between">
-            <div>
-              <h3 className="text-lg font-bold text-gray-900">
-                <Link href={product.href}>
-                  <span aria-hidden="true" className="absolute inset-0" />
-                  {product.name}
-                </Link>
-              </h3>
-              <p className="mt-1 text-sm text-gray-500">
-                {product.description}
+      {featuredProducts.map((product: any) => {
+        const href = `/products/${product.vehicle}/${product.generation}/${product.category}/${product.id}`;
+
+        return (
+          <div key={product.id} className="group relative">
+            <div className="aspect-h-1 aspect-w-1 w-full overflow-hidden rounded-md bg-gray-200 lg:aspect-none group-hover:opacity-75 lg:h-80">
+              <Image
+                src={product.images[0]?.src || "/placeholder.svg"}
+                alt={product.images[0]?.alt || product.name}
+                width={400}
+                height={400}
+                className="h-full w-full object-cover object-center lg:h-full lg:w-full"
+              />
+            </div>
+            <div className="mt-4 flex justify-between">
+              <div>
+                <h3 className="text-lg font-bold text-gray-900">
+                  <Link href={href}>
+                    <span aria-hidden="true" className="absolute inset-0" />
+                    {product.name}
+                  </Link>
+                </h3>
+                <p className="mt-1 text-sm text-gray-500">
+                  {product.shortDescription}
+                </p>
+              </div>
+              <p className="text-lg font-medium text-gray-900">
+                {product.priceFormatted || `$${product.price.toFixed(2)}`}
               </p>
             </div>
-            <p className="text-lg font-medium text-gray-900">{product.price}</p>
           </div>
-        </div>
-      ))}
+        );
+      })}
     </div>
   );
 }

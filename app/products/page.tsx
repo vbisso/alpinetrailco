@@ -5,18 +5,25 @@ import ProductCard from "@/components/ProductCard";
 import { motion } from "framer-motion";
 import { products } from "@/data/products";
 
-const allProducts = Object.entries(products).flatMap(
-  ([vehicleKey, categories]) =>
-    Object.entries(categories).flatMap(([categoryKey, items]) =>
-      Object.values(items).map((product) => ({
-        id: product.id,
-        name: product.name,
-        price: product.priceFormatted || `$${product.price.toFixed(2)}`,
-        image: product.images[0]?.src,
-        description: product.shortDescription,
-        href: `/products/${vehicleKey}/${categoryKey}/${product.id}`,
-        category: product.category || categoryKey,
-      }))
+const allProducts = Object.entries(products as Record<string, any>).flatMap(
+  ([vehicleKey, generations]) =>
+    Object.entries(generations as Record<string, any>).flatMap(
+      ([generationKey, categories]) =>
+        Object.entries(categories as Record<string, any>).flatMap(
+          ([categoryKey, items]) =>
+            Object.values(items as Record<string, any>).map((product) => ({
+              id: product.id,
+              name: product.name,
+              price: product.priceFormatted || `$${product.price.toFixed(2)}`,
+              image: product.images[0]?.src,
+              description: product.shortDescription,
+              href: `/products/${vehicleKey}/${generationKey}/${categoryKey}/${product.id}`,
+              vehicle: vehicleKey,
+              generation: generationKey,
+              category: categoryKey,
+              inStock: product.inStock,
+            }))
+        )
     )
 );
 
