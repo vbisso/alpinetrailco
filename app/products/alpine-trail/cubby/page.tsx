@@ -34,8 +34,6 @@ const product = {
       alt: "Alpine Trail Cubby product view",
     },
   ],
-  rating: 5,
-  reviews: 8,
   features: [
     "Perfect fit for 4th Gen Toyota 4Runner (2003-2009)",
     "Replaces factory ashtray for a clean, integrated look",
@@ -139,22 +137,10 @@ export default function ProductPage() {
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.5, delay: 0.1 }}
           >
-            <h1 className="text-3xl md:text-4xl font-bold text-gray-900 mb-2">
+            <h1 className="text-3xl md:text-4xl font-bold text-gray-900 mb-6">
               {product.name}
             </h1>
-            <div className="flex items-center mb-4">
-              <div className="flex items-center">
-                {[...Array(5)].map((_, i) => (
-                  <Star
-                    key={i}
-                    className="h-5 w-5 text-yellow-400 fill-current"
-                  />
-                ))}
-              </div>
-              <span className="ml-2 text-sm text-gray-600">
-                ({product.reviews} reviews)
-              </span>
-            </div>
+
             <p className="text-3xl font-bold text-red-600 mb-6">
               ${product.price.toFixed(2)}
             </p>

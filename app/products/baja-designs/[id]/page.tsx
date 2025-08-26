@@ -1,14 +1,14 @@
-"use client"
+"use client";
 
-import { useState } from "react"
-import { useParams } from "next/navigation"
-import { useCart } from "@/contexts/cart-context"
-import { Button } from "@/components/ui/button"
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import { Badge } from "@/components/ui/badge"
-import { ShoppingCart, Star, Truck, Shield, Zap, Eye } from "lucide-react"
-import Image from "next/image"
-import Link from "next/link"
+import { useState } from "react";
+import { useParams } from "next/navigation";
+import { useCart } from "@/contexts/cart-context";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
+import { ShoppingCart, Truck, Shield, Zap, Eye } from "lucide-react";
+import Image from "next/image";
+import Link from "next/link";
 
 const products = {
   "squadron-pro": {
@@ -110,49 +110,52 @@ const products = {
     category: "LED Lights",
     brand: "Baja Designs",
   },
-}
+};
 
 export default function ProductPage() {
-  const params = useParams()
-  const { dispatch } = useCart()
-  const [selectedImage, setSelectedImage] = useState(0)
-  const [isAddingToCart, setIsAddingToCart] = useState(false)
+  const params = useParams();
+  const { addItem } = useCart(); //use addItem instead of dispatch
+  const [selectedImage, setSelectedImage] = useState(0);
+  const [isAddingToCart, setIsAddingToCart] = useState(false);
 
-  const product = products[params.id as keyof typeof products]
+  const product = products[params.id as keyof typeof products];
 
   if (!product) {
     return (
       <div className="min-h-screen bg-black text-white py-16">
         <div className="container mx-auto px-4 text-center">
           <h1 className="text-4xl font-bold mb-4">Product Not Found</h1>
-          <p className="text-gray-400 mb-8">The product you're looking for doesn't exist.</p>
+          <p className="text-gray-400 mb-8">
+            The product you're looking for doesn't exist.
+          </p>
           <Link href="/products/baja-designs">
-            <Button className="bg-red-600 hover:bg-red-700">Back to Products</Button>
+            <Button className="bg-red-600 hover:bg-red-700">
+              Back to Products
+            </Button>
           </Link>
         </div>
       </div>
-    )
+    );
   }
 
   const handleAddToCart = async () => {
-    setIsAddingToCart(true)
+    setIsAddingToCart(true);
 
-    dispatch({
-      type: "ADD_ITEM",
-      payload: {
-        id: product.id,
-        name: product.name,
-        price: product.price,
-        image: product.images[0],
-      },
-    })
+    addItem({
+      id: product.id,
+      name: product.name,
+      price: product.price,
+      image: product.images[0],
+    });
 
     // Simulate loading
-    await new Promise((resolve) => setTimeout(resolve, 500))
-    setIsAddingToCart(false)
-  }
+    await new Promise((resolve) => setTimeout(resolve, 500));
+    setIsAddingToCart(false);
+  };
 
-  const discount = Math.round(((product.originalPrice - product.price) / product.originalPrice) * 100)
+  const discount = Math.round(
+    ((product.originalPrice - product.price) / product.originalPrice) * 100
+  );
 
   return (
     <div className="min-h-screen bg-black text-white py-16">
@@ -186,7 +189,11 @@ export default function ProductPage() {
                 fill
                 className="object-cover"
               />
-              {discount > 0 && <Badge className="absolute top-4 left-4 bg-red-600 text-white">{discount}% OFF</Badge>}
+              {discount > 0 && (
+                <Badge className="absolute top-4 left-4 bg-red-600 text-white">
+                  {discount}% OFF
+                </Badge>
+              )}
             </div>
 
             {/* Thumbnail Images */}
@@ -196,7 +203,9 @@ export default function ProductPage() {
                   key={index}
                   onClick={() => setSelectedImage(index)}
                   className={`relative aspect-square rounded-lg overflow-hidden border-2 transition-colors ${
-                    selectedImage === index ? "border-red-600" : "border-gray-700 hover:border-gray-600"
+                    selectedImage === index
+                      ? "border-red-600"
+                      : "border-gray-700 hover:border-gray-600"
                   }`}
                 >
                   <Image
@@ -213,26 +222,25 @@ export default function ProductPage() {
           {/* Product Info */}
           <div>
             <div className="mb-4">
-              <Badge variant="outline" className="mb-2 border-red-600 text-red-400">
+              <Badge
+                variant="outline"
+                className="mb-2 border-red-600 text-red-400"
+              >
                 {product.brand}
               </Badge>
-              <h1 className="text-4xl font-bold mb-2">{product.name}</h1>
-              <div className="flex items-center space-x-2 mb-4">
-                <div className="flex items-center">
-                  {[...Array(5)].map((_, i) => (
-                    <Star key={i} className="h-4 w-4 fill-yellow-400 text-yellow-400" />
-                  ))}
-                </div>
-                <span className="text-gray-400">(47 reviews)</span>
-              </div>
+              <h1 className="text-4xl font-bold mb-6">{product.name}</h1>
             </div>
 
             {/* Price */}
             <div className="mb-6">
               <div className="flex items-center space-x-3">
-                <span className="text-3xl font-bold text-red-400">${product.price.toLocaleString()}</span>
+                <span className="text-3xl font-bold text-red-400">
+                  ${product.price.toLocaleString()}
+                </span>
                 {product.originalPrice > product.price && (
-                  <span className="text-xl text-gray-400 line-through">${product.originalPrice.toLocaleString()}</span>
+                  <span className="text-xl text-gray-400 line-through">
+                    ${product.originalPrice.toLocaleString()}
+                  </span>
                 )}
               </div>
               {product.inStock ? (
@@ -243,7 +251,9 @@ export default function ProductPage() {
             </div>
 
             {/* Description */}
-            <p className="text-gray-300 mb-6 leading-relaxed">{product.description}</p>
+            <p className="text-gray-300 mb-6 leading-relaxed">
+              {product.description}
+            </p>
 
             {/* Add to Cart */}
             <div className="mb-8">
@@ -318,5 +328,5 @@ export default function ProductPage() {
         </Card>
       </div>
     </div>
-  )
+  );
 }

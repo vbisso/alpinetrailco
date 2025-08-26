@@ -1,21 +1,21 @@
-"use client"
+"use client";
 
-import { useState } from "react"
-import Link from "next/link"
-import { Menu, X, ChevronDown } from "lucide-react"
-import CartIcon from "@/components/cart-icon"
+import { useState } from "react";
+import Link from "next/link";
+import { Menu, X, ChevronDown } from "lucide-react";
+import CartIcon from "@/components/cart-icon";
 
 export default function Header() {
-  const [isMenuOpen, setIsMenuOpen] = useState(false)
-  const [activeDropdown, setActiveDropdown] = useState<string | null>(null)
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
 
   const toggleMenu = () => {
-    setIsMenuOpen(!isMenuOpen)
-  }
+    setIsMenuOpen(!isMenuOpen);
+  };
 
   const handleDropdownToggle = (dropdown: string) => {
-    setActiveDropdown(activeDropdown === dropdown ? null : dropdown)
-  }
+    setActiveDropdown(activeDropdown === dropdown ? null : dropdown);
+  };
 
   return (
     <header className="bg-white shadow-sm border-b border-gray-200 sticky top-0 z-50">
@@ -23,10 +23,18 @@ export default function Header() {
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
           <Link href="/" className="flex items-center space-x-3">
-            <img src="/images/alpine-trail-logo-new.png" alt="Alpine Trail Co." className="h-12 w-auto" />
+            <img
+              src="/images/alpine-trail-logo-new.png"
+              alt="Alpine Trail Co."
+              className="h-12 w-auto"
+            />
             <div className="hidden sm:block">
-              <div className="text-xl font-bold text-gray-900">ALPINE TRAIL CO.</div>
-              <div className="text-xs text-gray-600 -mt-1">OFF-ROAD FABRICATION</div>
+              <div className="text-xl font-bold text-gray-900">
+                ALPINE TRAIL CO.
+              </div>
+              <div className="text-xs text-gray-600 -mt-1">
+                OFF-ROAD FABRICATION
+              </div>
             </div>
           </Link>
 
@@ -114,14 +122,42 @@ export default function Header() {
               )}
             </div>
 
-            {/* Removed LIGHTING link */}
-            <Link href="/gallery" className="text-gray-700 hover:text-red-600 font-medium transition-colors">
-              GALLERY
-            </Link>
-            <Link href="/about" className="text-gray-700 hover:text-red-600 font-medium transition-colors">
+            {/* Tundra Dropdown */}
+            <div className="relative group">
+              <button
+                className="flex items-center text-gray-700 hover:text-red-600 font-medium transition-colors"
+                onMouseEnter={() => setActiveDropdown("tundra")}
+                onMouseLeave={() => setActiveDropdown(null)}
+              >
+                TUNDRA
+                <ChevronDown className="ml-1 h-4 w-4" />
+              </button>
+              {activeDropdown === "tundra" && (
+                <div
+                  className="absolute top-full left-0 mt-1 w-48 bg-white rounded-md shadow-lg border border-gray-200 py-2 z-50"
+                  onMouseEnter={() => setActiveDropdown("tundra")}
+                  onMouseLeave={() => setActiveDropdown(null)}
+                >
+                  <Link
+                    href="/vehicles/tundra/1st-gen"
+                    className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 hover:text-red-600"
+                  >
+                    1st Gen (2000-2006)
+                  </Link>
+                </div>
+              )}
+            </div>
+
+            <Link
+              href="/about"
+              className="text-gray-700 hover:text-red-600 font-medium transition-colors"
+            >
               ABOUT
             </Link>
-            <Link href="/contact" className="text-gray-700 hover:text-red-600 font-medium transition-colors">
+            <Link
+              href="/contact"
+              className="text-gray-700 hover:text-red-600 font-medium transition-colors"
+            >
               CONTACT
             </Link>
           </nav>
@@ -135,7 +171,11 @@ export default function Header() {
               onClick={toggleMenu}
               className="md:hidden p-2 rounded-md text-gray-700 hover:text-red-600 hover:bg-gray-100 transition-colors"
             >
-              {isMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
+              {isMenuOpen ? (
+                <X className="h-6 w-6" />
+              ) : (
+                <Menu className="h-6 w-6" />
+              )}
             </button>
           </div>
         </div>
@@ -151,7 +191,9 @@ export default function Header() {
                 >
                   TACOMA
                   <ChevronDown
-                    className={`h-4 w-4 transition-transform ${activeDropdown === "mobile-tacoma" ? "rotate-180" : ""}`}
+                    className={`h-4 w-4 transition-transform ${
+                      activeDropdown === "mobile-tacoma" ? "rotate-180" : ""
+                    }`}
                   />
                 </button>
                 {activeDropdown === "mobile-tacoma" && (
@@ -185,7 +227,9 @@ export default function Header() {
                 >
                   4RUNNER
                   <ChevronDown
-                    className={`h-4 w-4 transition-transform ${activeDropdown === "mobile-4runner" ? "rotate-180" : ""}`}
+                    className={`h-4 w-4 transition-transform ${
+                      activeDropdown === "mobile-4runner" ? "rotate-180" : ""
+                    }`}
                   />
                 </button>
                 {activeDropdown === "mobile-4runner" && (
@@ -219,13 +263,22 @@ export default function Header() {
               </div>
 
               {/* Removed LIGHTING link from mobile */}
-              <Link href="/gallery" className="block text-gray-700 hover:text-red-600 font-medium py-2">
+              <Link
+                href="/gallery"
+                className="block text-gray-700 hover:text-red-600 font-medium py-2"
+              >
                 GALLERY
               </Link>
-              <Link href="/about" className="block text-gray-700 hover:text-red-600 font-medium py-2">
+              <Link
+                href="/about"
+                className="block text-gray-700 hover:text-red-600 font-medium py-2"
+              >
                 ABOUT
               </Link>
-              <Link href="/contact" className="block text-gray-700 hover:text-red-600 font-medium py-2">
+              <Link
+                href="/contact"
+                className="block text-gray-700 hover:text-red-600 font-medium py-2"
+              >
                 CONTACT
               </Link>
             </div>
@@ -233,5 +286,5 @@ export default function Header() {
         )}
       </div>
     </header>
-  )
+  );
 }

@@ -11,30 +11,25 @@
       "static/css/app/layout.css",
       "static/chunks/app/layout.js"
     ],
-    "/vehicles/4runner/page": [
+    "/products/[vehicle]/[category]/page": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
-      "static/chunks/app/vehicles/4runner/page.js"
-    ],
-    "/vehicles/4runner/4th-gen/page": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/chunks/app/vehicles/4runner/4th-gen/page.js"
-    ],
-    "/products/alpine-trail/cubby/page": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/chunks/app/products/alpine-trail/cubby/page.js"
+      "static/chunks/app/products/[vehicle]/[category]/page.js"
     ],
     "/products/loading": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
       "static/chunks/app/products/loading.js"
     ],
-    "/cart/page": [
+    "/products/page": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
-      "static/chunks/app/cart/page.js"
+      "static/chunks/app/products/page.js"
+    ],
+    "/products/alpine-trail/cubby/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/products/alpine-trail/cubby/page.js"
     ],
     "/vehicles/4runner/4th-gen/interior/2/page": [
       "static/chunks/webpack.js",
@@ -46,35 +41,80 @@
       "static/chunks/main-app.js",
       "static/chunks/app/vehicles/4runner/4th-gen/interior/4/page.js"
     ],
+    "/vehicles/tacoma/2nd-gen/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/vehicles/tacoma/2nd-gen/page.js"
+    ],
+    "/vehicles/tacoma/3rd-gen/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/vehicles/tacoma/3rd-gen/page.js"
+    ],
+    "/vehicles/tacoma/4th-gen/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/vehicles/tacoma/4th-gen/page.js"
+    ],
+    "/vehicles/4runner/3rd-gen/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/vehicles/4runner/3rd-gen/page.js"
+    ],
+    "/vehicles/4runner/4th-gen/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/vehicles/4runner/4th-gen/page.js"
+    ],
+    "/vehicles/4runner/4th-gen/front-bumpers/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/vehicles/4runner/4th-gen/front-bumpers/page.js"
+    ],
     "/vehicles/4runner/4th-gen/interior/page": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
       "static/chunks/app/vehicles/4runner/4th-gen/interior/page.js"
     ],
-    "/products/page": [
+    "/vehicles/4runner/4th-gen/interior/3/page": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
-      "static/chunks/app/products/page.js"
+      "static/chunks/app/vehicles/4runner/4th-gen/interior/3/page.js"
     ],
     "/vehicles/4runner/4th-gen/interior/1/page": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
       "static/chunks/app/vehicles/4runner/4th-gen/interior/1/page.js"
     ],
+    "/vehicles/tundra/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/vehicles/tundra/page.js"
+    ],
+    "/vehicles/tundra/1st-gen/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/vehicles/tundra/1st-gen/page.js"
+    ],
+    "/vehicles/tundra/1st-gen/interior/1/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/vehicles/tundra/1st-gen/interior/1/page.js"
+    ],
+    "/cart/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/cart/page.js"
+    ],
     "/checkout/page": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
       "static/chunks/app/checkout/page.js"
     ],
-    "/checkout/success/page": [
+    "/products/baja-designs/[id]/page": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
-      "static/chunks/app/checkout/success/page.js"
-    ],
-    "/_not-found/page": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/chunks/app/_not-found/page.js"
+      "static/chunks/app/products/baja-designs/[id]/page.js"
     ]
   }
 }

@@ -1,41 +1,45 @@
-"use client"
+"use client";
 
-import { useState, useEffect, useRef } from "react"
-import Link from "next/link"
-import { Button } from "@/components/ui/button"
-import { ChevronRight, ArrowRight, ChevronDown } from 'lucide-react'
-import ProductShowcase from "@/components/product-showcase"
-import { motion } from "framer-motion"
+import { useState, useEffect, useRef } from "react";
+import Link from "next/link";
+import { Button } from "@/components/ui/button";
+import { ChevronRight, ArrowRight, ChevronDown } from "lucide-react";
+import ProductShowcase from "@/components/product-showcase";
+import { motion } from "framer-motion";
 
 export default function Home() {
-  const [scrollY, setScrollY] = useState(0)
-  const heroRef = useRef<HTMLDivElement>(null)
+  const [scrollY, setScrollY] = useState(0);
+  const heroRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const handleScroll = () => {
-      setScrollY(window.scrollY)
-    }
+      setScrollY(window.scrollY);
+    };
 
-    window.addEventListener("scroll", handleScroll, { passive: true })
-    return () => window.removeEventListener("scroll", handleScroll)
-  }, [])
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
   const scrollToVehicles = () => {
-    const vehiclesSection = document.getElementById("vehicles-section")
+    const vehiclesSection = document.getElementById("vehicles-section");
     if (vehiclesSection) {
-      vehiclesSection.scrollIntoView({ behavior: "smooth" })
+      vehiclesSection.scrollIntoView({ behavior: "smooth" });
     }
-  }
+  };
 
   return (
     <div className="flex flex-col min-h-screen">
       {/* Hero Section */}
-      <section ref={heroRef} className="relative min-h-screen flex items-center justify-center overflow-hidden">
+      <section
+        ref={heroRef}
+        className="relative min-h-screen flex items-center justify-center overflow-hidden"
+      >
         <div className="absolute inset-0 z-0">
           <div
             className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/50 to-black/70 z-10"
             style={{
-              backgroundImage: "linear-gradient(to bottom, rgba(0,0,0,0.7), rgba(0,0,0,0.4), rgba(0,0,0,0.7))",
+              backgroundImage:
+                "linear-gradient(to bottom, rgba(0,0,0,0.7), rgba(0,0,0,0.4), rgba(0,0,0,0.7))",
             }}
           ></div>
           <div
@@ -73,16 +77,8 @@ export default function Home() {
                 size="lg"
                 className="bg-orange-500 hover:bg-orange-600 text-white px-8 py-6 text-lg rounded-full transition-all duration-300 hover:shadow-lg hover:scale-105"
               >
-                <Link href="/vehicles/tacoma" className="flex items-center">
-                  SHOP TACOMA <ArrowRight className="ml-2 h-5 w-5" />
-                </Link>
-              </Button>
-              <Button
-                size="lg"
-                className="bg-orange-500 hover:bg-orange-600 text-white px-8 py-6 text-lg rounded-full transition-all duration-300 hover:shadow-lg hover:scale-105"
-              >
-                <Link href="/vehicles/4runner" className="flex items-center">
-                  SHOP 4RUNNER <ArrowRight className="ml-2 h-5 w-5" />
+                <Link href="/products" className="flex items-center">
+                  SHOP PRODUCTS <ArrowRight className="ml-2 h-5 w-5" />
                 </Link>
               </Button>
             </div>
@@ -116,7 +112,9 @@ export default function Home() {
             className="flex justify-between items-center mb-16"
           >
             <div>
-              <h2 className="text-4xl font-bold text-gray-900 mb-2">FEATURED PRODUCTS</h2>
+              <h2 className="text-4xl font-bold text-gray-900 mb-2">
+                FEATURED PRODUCTS
+              </h2>
               <div className="h-1 w-20 bg-charcoal-600"></div>
             </div>
             <Link
@@ -141,10 +139,13 @@ export default function Home() {
             transition={{ duration: 0.6 }}
             className="text-center mb-16"
           >
-            <h2 className="text-4xl font-bold text-gray-900 mb-4">SHOP BY VEHICLE</h2>
+            <h2 className="text-4xl font-bold text-gray-900 mb-4">
+              SHOP BY VEHICLE
+            </h2>
             <div className="h-1 w-20 bg-charcoal-600 mx-auto"></div>
             <p className="text-gray-600 mt-4 max-w-2xl mx-auto">
-              Find the perfect off-road accessories designed specifically for your Toyota
+              Find the perfect off-road accessories designed specifically for
+              your Toyota
             </p>
           </motion.div>
 
@@ -198,7 +199,9 @@ export default function Home() {
                         className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
                       />
                       <div className="absolute bottom-0 left-0 right-0 p-6 z-20">
-                        <h4 className="text-2xl font-bold text-white mb-1">{vehicle.gen}</h4>
+                        <h4 className="text-2xl font-bold text-white mb-1">
+                          {vehicle.gen}
+                        </h4>
                         <p className="text-gray-200 mb-4">{vehicle.years}</p>
                         <div className="flex items-center text-gray-200 font-medium group-hover:text-white transition-colors duration-300">
                           <span>Shop Now</span>
@@ -268,7 +271,9 @@ export default function Home() {
                         className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
                       />
                       <div className="absolute bottom-0 left-0 right-0 p-6 z-20">
-                        <h4 className="text-2xl font-bold text-white mb-1">{vehicle.gen}</h4>
+                        <h4 className="text-2xl font-bold text-white mb-1">
+                          {vehicle.gen}
+                        </h4>
                         <p className="text-gray-200 mb-4">{vehicle.years}</p>
                         <div className="flex items-center text-gray-200 font-medium group-hover:text-white transition-colors duration-300">
                           <span>Shop Now</span>
@@ -279,6 +284,50 @@ export default function Home() {
                   </Link>
                 </motion.div>
               ))}
+            </div>
+          </div>
+
+          {/* Tundra Generations */}
+          <div className="mt-20">
+            <motion.div
+              initial={{ opacity: 0, x: -20 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6 }}
+              className="flex items-center mb-8"
+            >
+              <h3 className="text-3xl font-bold text-gray-900">TUNDRA</h3>
+              <div className="h-px flex-grow bg-gray-300 ml-6"></div>
+            </motion.div>
+
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5 }}
+              >
+                <Link href="/vehicles/tundra/1st-gen" className="block group">
+                  <div className="relative h-80 rounded-xl overflow-hidden mb-4 shadow-lg">
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent z-10"></div>
+                    <img
+                      src="/images/tundra/toyota-tundra-1st-generation-pickup-truck.jpeg"
+                      alt="1st Gen Toyota Tundra"
+                      className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                    />
+                    <div className="absolute bottom-0 left-0 right-0 p-6 z-20">
+                      <h4 className="text-2xl font-bold text-white mb-1">
+                        1ST GEN
+                      </h4>
+                      <p className="text-gray-200 mb-4">2000-2006</p>
+                      <div className="flex items-center text-gray-200 font-medium group-hover:text-white transition-colors duration-300">
+                        <span>Shop Now</span>
+                        <ArrowRight className="ml-2 h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
+                      </div>
+                    </div>
+                  </div>
+                </Link>
+              </motion.div>
             </div>
           </div>
         </div>
@@ -294,16 +343,21 @@ export default function Home() {
               viewport={{ once: true }}
               transition={{ duration: 0.8 }}
             >
-              <h2 className="text-4xl font-bold text-gray-900 mb-4">BUILT WITH PURPOSE</h2>
+              <h2 className="text-4xl font-bold text-gray-900 mb-4">
+                BUILT WITH PURPOSE
+              </h2>
               <div className="h-1 w-20 bg-charcoal-600 mb-8"></div>
               <p className="text-gray-600 mb-6 text-lg">
-                Our passion for off-roading drives us to create the highest quality bumpers, sliders, and accessories
-                for your Tacoma and 4Runner. Every product is designed, engineered, and manufactured in-house to ensure
-                exceptional quality and performance.
+                Our passion for off-roading drives us to create the highest
+                quality bumpers, sliders, and accessories for your Tacoma and
+                4Runner. Every product is designed, engineered, and manufactured
+                in-house to ensure exceptional quality and performance.
               </p>
               <p className="text-gray-600 mb-8 text-lg">
-                With years of experience in the field, we understand what it takes to build components that can
-                withstand the toughest terrains while enhancing the capability and appearance of your vehicle.
+                With years of experience in the field, we understand what it
+                takes to build components that can withstand the toughest
+                terrains while enhancing the capability and appearance of your
+                vehicle.
               </p>
               <Button className="bg-charcoal-700 hover:bg-charcoal-600 text-white transition-all duration-300 rounded-full px-8 py-6 text-lg hover:shadow-lg hover:scale-105">
                 <Link href="/about">LEARN MORE ABOUT US</Link>
@@ -329,7 +383,11 @@ export default function Home() {
       {/* Newsletter */}
       <section className="py-24 bg-gray-900 relative overflow-hidden">
         <div className="absolute inset-0 opacity-10">
-          <img src="/images/hero-background-5.jpg" alt="" className="w-full h-full object-cover" />
+          <img
+            src="/images/hero-background-5.jpg"
+            alt=""
+            className="w-full h-full object-cover"
+          />
         </div>
         <div className="container px-4 relative z-10">
           <motion.div
@@ -339,10 +397,13 @@ export default function Home() {
             transition={{ duration: 0.6 }}
             className="max-w-3xl mx-auto text-center"
           >
-            <h2 className="text-4xl font-bold text-white mb-4">JOIN THE ADVENTURE</h2>
+            <h2 className="text-4xl font-bold text-white mb-4">
+              JOIN THE ADVENTURE
+            </h2>
             <div className="h-1 w-20 bg-white mx-auto mb-6"></div>
             <p className="text-gray-300 mb-8 text-lg">
-              Subscribe to our newsletter for exclusive offers, new product announcements, and build inspiration.
+              Subscribe to our newsletter for exclusive offers, new product
+              announcements, and build inspiration.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 max-w-md mx-auto">
               <input
@@ -358,5 +419,5 @@ export default function Home() {
         </div>
       </section>
     </div>
-  )
+  );
 }
