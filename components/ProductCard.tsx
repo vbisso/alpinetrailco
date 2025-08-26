@@ -26,18 +26,18 @@ export default function ProductCard({
 }: ProductCardProps) {
   return (
     <div
-      className="group relative flex flex-col overflow-hidden rounded-lg border border-gray-200 bg-white"
+      className="group relative flex flex-col overflow-hidden rounded-lg border border-gray-200 bg-white h-full"
       data-product-id={id}
     >
+      {/* Image container with fixed aspect ratio */}
       <div className="aspect-w-3 aspect-h-2 bg-gray-200 sm:aspect-none sm:h-60 relative">
-        {/* Image is never clickable for Coming Soon */}
         {comingSoon ? (
           <Image
             src={image || "/placeholder.svg"}
             alt={name}
             width={400}
             height={400}
-            className="h-full w-full object-cover object-center sm:h-full sm:w-full"
+            className="h-full w-full object-cover object-center"
           />
         ) : href && href !== "#" ? (
           <Link href={href} aria-label={`View ${name}`}>
@@ -46,7 +46,7 @@ export default function ProductCard({
               alt={name}
               width={400}
               height={400}
-              className="h-full w-full object-cover object-center sm:h-full sm:w-full"
+              className="h-full w-full object-cover object-center"
             />
           </Link>
         ) : (
@@ -55,18 +55,16 @@ export default function ProductCard({
             alt={name}
             width={400}
             height={400}
-            className="h-full w-full object-cover object-center sm:h-full sm:w-full"
+            className="h-full w-full object-cover object-center"
           />
         )}
 
-        {/* Out of Stock badge */}
         {!inStock && (
           <div className="absolute top-2 right-2 bg-gray-800 text-white text-xs px-2 py-1 rounded">
             Out of Stock
           </div>
         )}
 
-        {/* Coming Soon overlay */}
         {comingSoon && (
           <div className="absolute inset-0 bg-white/75 flex items-center justify-center">
             <span className="text-lg font-bold text-gray-900">Coming Soon</span>
@@ -74,14 +72,9 @@ export default function ProductCard({
         )}
       </div>
 
-      <div className="flex flex-1 flex-col space-y-2 p-4">
-        {/* {category && (
-          <p className="text-sm text-gray-500 uppercase tracking-wide">
-            {category}
-          </p>
-        )} */}
-
-        <h3 className="text-sm font-medium text-gray-900">
+      {/* Content area */}
+      <div className="flex flex-1 flex-col p-4">
+        <h3 className="text-sm font-medium text-gray-900 mb-2 line-clamp-2">
           {comingSoon || !href || href === "#" ? (
             <span>{name}</span>
           ) : (
@@ -92,9 +85,14 @@ export default function ProductCard({
           )}
         </h3>
 
-        {description && <p className="text-sm text-gray-500">{description}</p>}
+        {/* Lock description height to keep cards aligned */}
+        {description && (
+          <p className="text-sm text-gray-500 mb-4 line-clamp-3 min-h-[48px]">
+            {description}
+          </p>
+        )}
 
-        <div className="flex flex-1 flex-col justify-end">
+        <div className="mt-auto">
           {price && (
             <p className="text-base font-semibold text-gray-900">{price}</p>
           )}
