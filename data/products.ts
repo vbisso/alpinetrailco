@@ -290,7 +290,7 @@ export const products: ProductDictionary = {
             generation: "apparel",
             category: "shirts",
             name: "Alpine Trail Co. Signature Tee",
-            price: 25.0,
+            price: 2.0,
             priceFormatted: "$25.00",
             shortDescription: "Rep the brand with our signature t-shirt.",
             description:

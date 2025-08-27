@@ -47,8 +47,8 @@ export default function CheckoutPage() {
 
   // ----- Totals -----
   const subtotal = state.total;
-  const shipping = subtotal > 500 ? 0 : 50;
-  const tax = subtotal * 0.08;
+  const shipping = subtotal > 500 ? 0 : 0.5;
+  const tax = subtotal * 0.06;
   const total = subtotal + shipping + tax;
 
   // ===== Square: load SDK + mount card once =====
@@ -65,7 +65,8 @@ export default function CheckoutPage() {
           const s = document.createElement("script");
           s.id = "square-web-sdk";
           // Use sandbox while testing. Switch to https://web.squarecdn.com/v1/square.js for production.
-          s.src = "https://sandbox.web.squarecdn.com/v1/square.js";
+          // s.src = "https://sandbox.web.squarecdn.com/v1/square.js";
+          s.src = "https://web.squarecdn.com/v1/square.js";
           s.onload = () => resolve();
           s.onerror = () => reject(new Error("Failed to load Square SDK"));
           document.body.appendChild(s);
@@ -144,7 +145,7 @@ export default function CheckoutPage() {
         body: JSON.stringify({
           sourceId,
           items,
-          shippingCents: Math.round((subtotal > 500 ? 0 : 50) * 100),
+          shippingCents: Math.round((subtotal > 500 ? 0 : 0.5) * 100),
           taxCents: Math.round(tax * 100),
           email: formData.email,
           shippingAddress: {

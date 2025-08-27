@@ -168,19 +168,19 @@ export default function Home() {
                   gen: "2ND GEN",
                   years: "2005-2015",
                   image: "/images/tacoma-2nd-gen-stock.avif",
-                  link: "/vehicles/tacoma/2nd-gen",
+                  link: "/products/tacoma/2nd-gen",
                 },
                 {
                   gen: "3RD GEN",
                   years: "2016-2023",
                   image: "/images/tacoma-3rd-gen-hero.jpeg",
-                  link: "/vehicles/tacoma/3rd-gen",
+                  link: "/products/tacoma/3rd-gen",
                 },
                 {
                   gen: "4TH GEN",
                   years: "2024-Present",
                   image: "/images/tacoma-4th-gen-stock.jpg",
-                  link: "/vehicles/tacoma/4th-gen",
+                  link: "/products/tacoma/4th-gen",
                 },
               ].map((vehicle, index) => (
                 <motion.div
@@ -234,25 +234,25 @@ export default function Home() {
                   gen: "3RD GEN",
                   years: "1996-2002",
                   image: "/images/4runner-3rd-gen-stock.jpg",
-                  link: "/vehicles/4runner/3rd-gen",
+                  link: "/products/4runner/3rd-gen",
                 },
                 {
                   gen: "4TH GEN",
                   years: "2003-2009",
                   image: "/images/4runner-4th-gen-hero-1.jpeg",
-                  link: "/vehicles/4runner/4th-gen",
+                  link: "/products/4runner/4th-gen",
                 },
                 {
                   gen: "5TH GEN",
                   years: "2010-2023",
                   image: "/images/4runner-5th-gen-stock.jpg",
-                  link: "/vehicles/4runner/5th-gen",
+                  link: "/products/4runner/5th-gen",
                 },
                 {
                   gen: "6TH GEN",
                   years: "2024-Present",
                   image: "/images/4runner-6th-gen-stock.jpeg",
-                  link: "/vehicles/4runner/6th-gen",
+                  link: "/products/4runner/6th-gen",
                 },
               ].map((vehicle, index) => (
                 <motion.div
@@ -307,7 +307,7 @@ export default function Home() {
                 viewport={{ once: true }}
                 transition={{ duration: 0.5 }}
               >
-                <Link href="/vehicles/tundra/1st-gen" className="block group">
+                <Link href="/products/tundra/1st-gen" className="block group">
                   <div className="relative h-80 rounded-xl overflow-hidden mb-4 shadow-lg">
                     <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent z-10"></div>
                     <img
