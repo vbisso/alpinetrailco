@@ -1,35 +1,35 @@
-"use client"
+"use client";
 
-import { useState } from "react"
-import Link from "next/link"
-import { Button } from "@/components/ui/button"
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import { Minus, Plus, Trash2, ShoppingBag, ArrowLeft } from "lucide-react"
-import { useCart } from "@/contexts/cart-context"
+import { useState } from "react";
+import Link from "next/link";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Minus, Plus, Trash2, ShoppingBag, ArrowLeft } from "lucide-react";
+import { useCart } from "@/contexts/cart-context";
 
 export default function CartPage() {
-  const { state, updateQuantity, removeItem, clearCart } = useCart()
-  const [isUpdating, setIsUpdating] = useState<string | null>(null)
+  const { state, updateQuantity, removeItem, clearCart } = useCart();
+  const [isUpdating, setIsUpdating] = useState<string | null>(null);
 
   const handleQuantityChange = async (id: string, newQuantity: number) => {
-    setIsUpdating(id)
+    setIsUpdating(id);
     // Simulate loading state
-    await new Promise((resolve) => setTimeout(resolve, 300))
-    updateQuantity(id, newQuantity)
-    setIsUpdating(null)
-  }
+    await new Promise((resolve) => setTimeout(resolve, 300));
+    updateQuantity(id, newQuantity);
+    setIsUpdating(null);
+  };
 
   const handleRemoveItem = async (id: string) => {
-    setIsUpdating(id)
-    await new Promise((resolve) => setTimeout(resolve, 300))
-    removeItem(id)
-    setIsUpdating(null)
-  }
+    setIsUpdating(id);
+    await new Promise((resolve) => setTimeout(resolve, 300));
+    removeItem(id);
+    setIsUpdating(null);
+  };
 
-  const subtotal = state.total
-  const shipping = subtotal > 500 ? 0 : 50
-  const tax = subtotal * 0.08
-  const total = subtotal + shipping + tax
+  const subtotal = state.total;
+  const shipping = subtotal > 500 ? 0 : 50;
+  const tax = subtotal * 0.06;
+  const total = subtotal + shipping + tax;
 
   if (state.items.length === 0) {
     return (
@@ -37,25 +37,32 @@ export default function CartPage() {
         <div className="container mx-auto px-4">
           <div className="max-w-2xl mx-auto text-center">
             <ShoppingBag className="h-24 w-24 text-gray-400 mx-auto mb-6" />
-            <h1 className="text-3xl font-bold text-gray-900 mb-4">Your Cart is Empty</h1>
+            <h1 className="text-3xl font-bold text-gray-900 mb-4">
+              Your Cart is Empty
+            </h1>
             <p className="text-gray-600 mb-8">
-              Looks like you haven't added any items to your cart yet. Start shopping to build your perfect off-road
-              setup!
+              Looks like you haven't added any items to your cart yet. Start
+              shopping to build your perfect off-road setup!
             </p>
             <Link href="/">
-              <Button className="bg-red-600 hover:bg-red-700 text-white px-8 py-3">Continue Shopping</Button>
+              <Button className="bg-red-600 hover:bg-red-700 text-white px-8 py-3">
+                Continue Shopping
+              </Button>
             </Link>
           </div>
         </div>
       </div>
-    )
+    );
   }
 
   return (
     <div className="min-h-screen bg-gray-50 py-12">
       <div className="container mx-auto px-4">
         <div className="flex items-center mb-8">
-          <Link href="/" className="flex items-center text-gray-600 hover:text-red-600 mr-4">
+          <Link
+            href="/"
+            className="flex items-center text-gray-600 hover:text-red-600 mr-4"
+          >
             <ArrowLeft className="h-5 w-5 mr-2" />
             Continue Shopping
           </Link>
@@ -66,7 +73,9 @@ export default function CartPage() {
           <div className="lg:col-span-2">
             <Card>
               <CardHeader className="flex flex-row items-center justify-between">
-                <CardTitle className="text-2xl font-bold">Shopping Cart ({state.itemCount} items)</CardTitle>
+                <CardTitle className="text-2xl font-bold">
+                  Shopping Cart ({state.itemCount} items)
+                </CardTitle>
                 <Button
                   variant="outline"
                   size="sm"
@@ -78,29 +87,41 @@ export default function CartPage() {
               </CardHeader>
               <CardContent className="space-y-6">
                 {state.items.map((item) => (
-                  <div key={item.id} className="flex items-center space-x-4 p-4 border border-gray-200 rounded-lg">
+                  <div
+                    key={item.id}
+                    className="flex items-center space-x-4 p-4 border border-gray-200 rounded-lg"
+                  >
                     <div className="flex-shrink-0">
                       <img
-                        src={item.image || "/placeholder.svg?height=100&width=100&text=Product"}
+                        src={
+                          item.image ||
+                          "/placeholder.svg?height=100&width=100&text=Product"
+                        }
                         alt={item.name}
                         className="h-20 w-20 object-cover rounded-md"
                       />
                     </div>
 
                     <div className="flex-1 min-w-0">
-                      <h3 className="text-lg font-semibold text-gray-900 truncate">{item.name}</h3>
+                      <h3 className="text-lg font-semibold text-gray-900 truncate">
+                        {item.name}
+                      </h3>
                       <p className="text-sm text-gray-500">
                         {item.vehicle && `${item.vehicle} • `}
                         {item.category}
                       </p>
-                      <p className="text-lg font-bold text-red-600">${item.price.toFixed(2)}</p>
+                      <p className="text-lg font-bold text-red-600">
+                        ${item.price.toFixed(2)}
+                      </p>
                     </div>
 
                     <div className="flex items-center space-x-2">
                       <Button
                         variant="outline"
                         size="sm"
-                        onClick={() => handleQuantityChange(item.id, item.quantity - 1)}
+                        onClick={() =>
+                          handleQuantityChange(item.id, item.quantity - 1)
+                        }
                         disabled={isUpdating === item.id || item.quantity <= 1}
                       >
                         <Minus className="h-4 w-4" />
@@ -113,7 +134,9 @@ export default function CartPage() {
                       <Button
                         variant="outline"
                         size="sm"
-                        onClick={() => handleQuantityChange(item.id, item.quantity + 1)}
+                        onClick={() =>
+                          handleQuantityChange(item.id, item.quantity + 1)
+                        }
                         disabled={isUpdating === item.id}
                       >
                         <Plus className="h-4 w-4" />
@@ -121,7 +144,9 @@ export default function CartPage() {
                     </div>
 
                     <div className="text-right">
-                      <p className="text-lg font-bold text-gray-900">${(item.price * item.quantity).toFixed(2)}</p>
+                      <p className="text-lg font-bold text-gray-900">
+                        ${(item.price * item.quantity).toFixed(2)}
+                      </p>
                       <Button
                         variant="ghost"
                         size="sm"
@@ -162,10 +187,16 @@ export default function CartPage() {
                   </span>
                 </div>
 
-                {shipping === 0 && <p className="text-sm text-green-600">🎉 You qualify for free shipping!</p>}
+                {shipping === 0 && (
+                  <p className="text-sm text-green-600">
+                    🎉 You qualify for free shipping!
+                  </p>
+                )}
 
                 {shipping > 0 && (
-                  <p className="text-sm text-gray-600">Add ${(500 - subtotal).toFixed(2)} more for free shipping</p>
+                  <p className="text-sm text-gray-600">
+                    Add ${(500 - subtotal).toFixed(2)} more for free shipping
+                  </p>
                 )}
 
                 <div className="flex justify-between">
@@ -181,11 +212,16 @@ export default function CartPage() {
                 </div>
 
                 <Link href="/checkout" className="block">
-                  <Button className="w-full bg-red-600 hover:bg-red-700 text-white py-3">Proceed to Checkout</Button>
+                  <Button className="w-full bg-red-600 hover:bg-red-700 text-white py-3">
+                    Proceed to Checkout
+                  </Button>
                 </Link>
 
                 <div className="text-center">
-                  <Link href="/" className="text-sm text-gray-600 hover:text-red-600">
+                  <Link
+                    href="/"
+                    className="text-sm text-gray-600 hover:text-red-600"
+                  >
                     Continue Shopping
                   </Link>
                 </div>
@@ -195,5 +231,5 @@ export default function CartPage() {
         </div>
       </div>
     </div>
-  )
+  );
 }

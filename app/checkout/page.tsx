@@ -47,7 +47,7 @@ export default function CheckoutPage() {
 
   // ----- Totals -----
   const subtotal = state.total;
-  const shipping = subtotal > 500 ? 0 : 0.5;
+  const shipping = subtotal > 500 ? 0 : 50;
   const tax = subtotal * 0.06;
   const total = subtotal + shipping + tax;
 
