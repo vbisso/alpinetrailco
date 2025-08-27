@@ -5,19 +5,28 @@ import ApparelProductDetail from "@/components/ApparelProductDetail";
 export default function ProductDetailPage({
   params,
 }: {
-  params: { vehicle: string; generation: string; category: string; id: string };
+  params: { vehicle: string; generation: string; id: string };
 }) {
-  const { vehicle, generation, category, id } = params;
+  const { vehicle, generation, id } = params;
 
-  // Direct lookup using the 4-level dictionary
-  const product: Product | undefined =
-    products[vehicle]?.[generation]?.[category]?.[id];
+  const genData = products[vehicle]?.[generation];
+  if (!genData) {
+    return <div className="p-10 text-center">Generation not found</div>;
+  }
+
+  let product: Product | undefined;
+  for (const categoryKey of Object.keys(genData.categories)) {
+    const categoryProducts = genData.categories[categoryKey];
+    if (categoryProducts[id]) {
+      product = categoryProducts[id];
+      break;
+    }
+  }
 
   if (!product) {
     return <div className="p-10 text-center">Product not found</div>;
   }
 
-  // If product has options (like t-shirts), use Apparel layout
   return product.options ? (
     <ApparelProductDetail product={product} />
   ) : (

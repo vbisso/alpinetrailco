@@ -4,6 +4,8 @@ import Link from "next/link";
 export interface ProductCardProps {
   id: string;
   name: string;
+  vehicle?: string;
+  generation?: string;
   price?: string;
   image?: string;
   category?: string;
@@ -16,6 +18,8 @@ export interface ProductCardProps {
 export default function ProductCard({
   id,
   name,
+  vehicle,
+  generation,
   price,
   image,
   category,
@@ -24,6 +28,16 @@ export default function ProductCard({
   inStock = true,
   comingSoon = false,
 }: ProductCardProps) {
+  // Format vehicle/gen nicely for display
+  const subtitle =
+    vehicle && generation
+      ? `${vehicle.toUpperCase()} - ${generation
+          .replace("-", " ")
+          .toUpperCase()}`
+      : vehicle
+      ? vehicle.toUpperCase()
+      : "";
+
   return (
     <div
       className="group relative flex flex-col overflow-hidden rounded-lg border border-gray-200 bg-white h-full"
@@ -74,12 +88,18 @@ export default function ProductCard({
 
       {/* Content area */}
       <div className="flex flex-1 flex-col p-4">
+        {/* Subtitle */}
+        {subtitle && (
+          <p className="text-xs font-medium text-gray-600 mb-1">{subtitle}</p>
+        )}
+
+        {/* Title */}
         <h3 className="text-sm font-medium text-gray-900 mb-2 line-clamp-2">
           {comingSoon || !href || href === "#" ? (
             <span>{name}</span>
           ) : (
             <Link href={href}>
-              <span aria-hidden="true" className="absolute inset-0" />
+              <span aria-hidden="true" className="absolute inset-0 " />
               {name}
             </Link>
           )}

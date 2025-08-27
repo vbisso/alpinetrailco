@@ -1,30 +1,25 @@
-import { products, Product } from "@/data/products";
+import { products } from "@/data/products";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import Link from "next/link";
 
 interface ProductCategoryPageProps {
-  params: {
-    vehicle: string;
-    generation: string;
-  };
+  params: { vehicle: string; generation: string };
 }
 
 export default function ProductCategoryPage({
   params,
 }: ProductCategoryPageProps) {
   const { vehicle, generation } = params;
+  const genData = products[vehicle]?.[generation];
 
-  // All categories under this generation
-  const categories = products[vehicle]?.[generation];
-
-  if (!categories) {
+  if (!genData) {
     return <div className="p-10 text-center">No products found</div>;
   }
 
-  // Flatten all products across categories
-  const allProducts: Product[] = Object.values(categories).flatMap(
-    (categoryProducts) => Object.values(categoryProducts)
+  const categories = genData.categories;
+  const allProducts = Object.values(categories).flatMap((category) =>
+    Object.values(category)
   );
 
   return (
@@ -34,8 +29,7 @@ export default function ProductCategoryPage({
           {vehicle.toUpperCase()} {generation.toUpperCase()}
         </h1>
         <p className="text-gray-300">
-          Premium {generation.replace("-", " ")} accessories designed
-          specifically for your {vehicle}.
+          Premium {generation} products designed for your {vehicle}.
         </p>
       </div>
 
@@ -62,9 +56,7 @@ export default function ProductCategoryPage({
               <p className="text-red-500 font-bold mb-4">
                 {product.priceFormatted || `$${product.price.toFixed(2)}`}
               </p>
-              <Link
-                href={`/products/${product.vehicle}/${product.generation}/${product.category}/${product.id}`}
-              >
+              <Link href={`/products/${vehicle}/${generation}/${product.id}`}>
                 <Button className="w-full bg-zinc-700 hover:bg-red-600">
                   VIEW DETAILS
                 </Button>

@@ -43,6 +43,20 @@ export default function ProductDetail({ product }: { product: any }) {
             Home
           </Link>
           <ChevronRight className="h-4 w-4 mx-2" />
+          <Link
+            href={`/products/${product.vehicle}`}
+            className="hover:text-gray-700"
+          >
+            {product.vehicle}
+          </Link>
+          <ChevronRight className="h-4 w-4 mx-2" />
+          <Link
+            href={`/products/${product.vehicle}/${product.generation}`}
+            className="hover:text-gray-700"
+          >
+            {product.generation}
+          </Link>
+          <ChevronRight className="h-4 w-4 mx-2" />
           <span className="text-gray-900 font-bold">{product.name}</span>
         </div>
 

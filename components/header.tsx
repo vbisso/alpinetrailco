@@ -57,19 +57,19 @@ export default function Header() {
                   onMouseLeave={() => setActiveDropdown(null)}
                 >
                   <Link
-                    href="/vehicles/tacoma/2nd-gen"
+                    href="/products/tacoma/2nd-gen"
                     className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 hover:text-red-600"
                   >
                     2nd Gen (2005-2015)
                   </Link>
                   <Link
-                    href="/vehicles/tacoma/3rd-gen"
+                    href="/products/tacoma/3rd-gen"
                     className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 hover:text-red-600"
                   >
                     3rd Gen (2016-2023)
                   </Link>
                   <Link
-                    href="/vehicles/tacoma/4th-gen"
+                    href="/products/tacoma/4th-gen"
                     className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 hover:text-red-600"
                   >
                     4th Gen (2024+)
@@ -95,25 +95,25 @@ export default function Header() {
                   onMouseLeave={() => setActiveDropdown(null)}
                 >
                   <Link
-                    href="/vehicles/4runner/3rd-gen"
+                    href="/products/4runner/3rd-gen"
                     className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 hover:text-red-600"
                   >
                     3rd Gen (1996-2002)
                   </Link>
                   <Link
-                    href="/vehicles/4runner/4th-gen"
+                    href="/products/4runner/4th-gen"
                     className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 hover:text-red-600"
                   >
                     4th Gen (2003-2009)
                   </Link>
                   <Link
-                    href="/vehicles/4runner/5th-gen"
+                    href="/products/4runner/5th-gen"
                     className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 hover:text-red-600"
                   >
                     5th Gen (2010-2024)
                   </Link>
                   <Link
-                    href="/vehicles/4runner/6th-gen"
+                    href="/products/4runner/6th-gen"
                     className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 hover:text-red-600"
                   >
                     6th Gen (2025+)
@@ -139,7 +139,7 @@ export default function Header() {
                   onMouseLeave={() => setActiveDropdown(null)}
                 >
                   <Link
-                    href="/vehicles/tundra/1st-gen"
+                    href="/tundra/tundra/1st-gen"
                     className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 hover:text-red-600"
                   >
                     1st Gen (2000-2006)
