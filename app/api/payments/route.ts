@@ -43,7 +43,7 @@ export async function POST(req: Request) {
     }));
 
     const orderBody: any = {
-      locationId: process.env.NEXT_PUBLIC_SQUARE_LOCATION_ID!,
+      locationId: process.env.SQUARE_LOCATION_ID!,
       lineItems,
     };
 
@@ -87,7 +87,7 @@ export async function POST(req: Request) {
         amount: order.totalMoney.amount,
         currency: order.totalMoney.currency ?? "USD",
       },
-      locationId: process.env.NEXT_PUBLIC_SQUARE_LOCATION_ID!,
+      locationId: process.env.SQUARE_LOCATION_ID!,
       orderId: order.id,
       buyerEmailAddress: email,
       shippingAddress,
