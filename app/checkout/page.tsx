@@ -29,8 +29,8 @@ export default function CheckoutPage() {
   const mountedOnceRef = useRef(false); // React 18 StrictMode guard
 
   // public envs
-  const appId = process.env.SQUARE_APP_ID!;
-  const locationId = process.env.SQUARE_LOCATION_ID!;
+  const appId = process.env.NEXT_PUBLIC_SQUARE_APP_ID!;
+  const locationId = process.env.NEXT_PUBLIC_SQUARE_LOCATION_ID!;
 
   // ----- Checkout form state -----
   const [isProcessing, setIsProcessing] = useState(false);
